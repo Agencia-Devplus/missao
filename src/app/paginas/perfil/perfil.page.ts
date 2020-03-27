@@ -21,9 +21,13 @@ export class PerfilPage implements OnInit {
   downloadURL: Observable<string>;
   urlCroppedIMG: string;
   urlIMG: string;
+  perguntas: any;
 
-  postagens: any;
-
+  configs = {
+    isSignIn: true,
+    acao: 'Entrar',
+    mudarAcao: 'Criar Conta'
+  };
   constructor(
     private auth: AuthService,
     private camera: Camera,
@@ -38,8 +42,26 @@ export class PerfilPage implements OnInit {
   }
 
   ngOnInit() {
+    this.listarPerguntasUsuario();
   }
+  listarPerguntasUsuario() {
+    this.crudService.read_PerguntasUsuario(firebase.auth().currentUser.displayName).subscribe(data => {
 
+      this.perguntas = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          pergunta: e.payload.doc.data()['pergunta'],
+          categoria: e.payload.doc.data()['categoria'],
+          usuario: e.payload.doc.data()['usuario'],
+          usuarioFoto: e.payload.doc.data()['usuarioFoto'],
+          id_user_pergunta: e.payload.doc.data()['id_usuario']
+        };
+      })
+      console.log(this.perguntas);
+
+    });
+  }
   // Testes upload de imagens
   async abrirGaleria() {
     const opcoes: CameraOptions = {

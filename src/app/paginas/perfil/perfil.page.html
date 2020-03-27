@@ -43,22 +43,19 @@
           <!-- Fim Info Usuário -->
 
           <!-- BIO Usuário -->
-          <div class="pdt-20">
-              <p class="txt4 fs-15 pd-20 pdt-10 ion-text-center">Pequena BIO com informações do usuário.</p>
+          <div class="pdl-5">
+              <p class="txt4 fs-15 fw-500 pdt-10 ion-text-left">Interações</p>
           </div>
           <!-- Fim BIO Usuário -->
 
           <!-- Cartão Postagem -->
-          <div class="wrap-gallery-info">
-              <div class=" element-gallery pdl-5 pdr-5" *ngFor="let postagem of postagens ">
+          <div class="txt-pergunta">
+              <div class=" element-gallery pdl-5 pdr-5" *ngFor="let item of perguntas ">
                   <div class="wrap-element shadow-2">
-                      <div class="thumb-view">
-                          <img [src]="postagem.Capa ">
-                      </div>
-                      <!-- <div class="pd-10 txt-info txt-light ">
-                              <h4 class="ellipsis fs-12 fw-600 spacing1 pdb-2 uppercase ion-no-margin ">{{ postagem.Titulo }}</h4>
-                              <p class="ellipsis fs-12 ion-no-margin ">{{ postagem.Texto }}</p>
-                          </div> -->
+                      <div class="pd-10 txt-info txt-dark ">
+                              <h4 class="ellipsis fs-12 fw-700  ">Sua pergunta</h4><h4 class="ellipsis fs-12 fw-500 spacing1 pdb-2 uppercase ">{{ item.pergunta }}</h4>
+                              <h6 class="ellipsis fs-11 fw-400 ion-no-margin">Categoria: {{ item.categoria }}</h6>
+                          </div>
                   </div>
               </div>
           </div>

@@ -3,8 +3,9 @@ import { CrudService } from 'src/app/core/services/crud.service';
 import * as firebase from 'firebase';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, NavController } from '@ionic/angular';
 import { ForumPopoverPage } from '../forum-popover/forum-popover.page';
+import { OverlayService } from 'src/app/core/services/overlay.service';
 
 
 @Component({
@@ -21,9 +22,9 @@ export class ForumPage implements OnInit {
   id_user_pergunta: any;
   idpergunta: string;
 
-  constructor(private auth: AuthService, public router: Router,
+  constructor(private auth: AuthService, public router: Router, private navCtrl: NavController,
     private crudService: CrudService, private popoverController: PopoverController,
-    public route: ActivatedRoute) {
+    public route: ActivatedRoute, private overlay: OverlayService) {
     this.auth.authState$.subscribe(user => (this.user = user));
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.idpergunta = params.get('id')
@@ -65,8 +66,22 @@ export class ForumPage implements OnInit {
 
   
 
-  RemoveRecord(rowID) {
+  /* RemoveRecord(rowID) {
     this.crudService.delete_Pergunta(rowID);
+  } */
+ async RemoveRecord(rowID) {
+    await this.overlay.alert({
+      message: 'Deseja realmente apagar sua pergunta??',
+      buttons: [{
+        text: 'Sim',
+        handler: async () => {
+          this.crudService.delete_Pergunta(rowID);
+          this.navCtrl.pop();
+        }
+      },
+        'Não'
+      ]
+    })
   }
 
   EditRecord(record) {

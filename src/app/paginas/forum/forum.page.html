@@ -1,5 +1,15 @@
+<ion-header>
+<ion-toolbar class="bg-header">
+  <ion-buttons slot="start">
+      <ion-back-button  defaultHref="/inicio/painel/home"></ion-back-button>
+  </ion-buttons>
+  
+</ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <ion-card class="ion-no-margin" *ngFor="let item of perguntas">
+<ion-content>
+  <ion-card class="ion-no-margin pdb-10" *ngFor="let item of perguntas">
     <ion-grid>
       <span *ngIf="!item.isEdit; else elseBlock">
 
@@ -9,24 +19,18 @@
               <img [src]="item.usuarioFoto" />
             </div>
           </ion-col>
-          <ion-col size="8" >
+          <ion-col size="6" >
             <div >
               <h2 class="txt-dark  fw-600 fs-18" style="margin-top: 15px;">{{ item.usuario }}</h2>
             </div>
           </ion-col>
-          <ion-col size="2">
-          </ion-col>
-          <ion-col>
+          <ion-col size="4">
             <!-- Toolbar Postagem-->
             <ion-toolbar>
-              <ion-buttons slot="start">
-                  <ion-button>
-                      <ion-icon name="happy"></ion-icon>
-                  </ion-button>
-              </ion-buttons>
-              <ion-buttons slot="end" *ngIf="user.uid == id_user_pergunta">
+              
+              <ion-buttons slot="end" *ngIf="user.uid == item.id_user_pergunta">
                   <ion-button color="primary" fill="clear" (click)="EditRecord(item)">
-                      <ion-icon name="create"></ion-icon>
+                    <ion-icon name="create"></ion-icon>
                   </ion-button>
                   <ion-button color="danger" fill="clear" (click)="RemoveRecord(item.id)">
                       <ion-icon name="trash"></ion-icon>
@@ -35,6 +39,7 @@
           </ion-toolbar>
           <!-- Fim Toolbar Postagem-->
           </ion-col>
+          
         </ion-row>
 
         <ion-row class="bg-pergunta">
@@ -59,33 +64,30 @@
       </span>
     </ion-grid>
     <ng-template #elseBlock>
+      
       <ion-card-header>
         <ion-card-title>
+          <ion-item class="txt-dark fs-15 pd-10 edi-pergunta">
+            <ion-textarea type="text" [(ngModel)]="item.editPergunta"></ion-textarea>
+          </ion-item>
           <ion-grid>
-            <ion-row>
-              <ion-col>
-                Edit
-              </ion-col>
+            <ion-row class="txt-dark fs-15 pd-10">
+              
               <ion-col>
                 <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
-                  Cancel
+                  Cancelar
                 </ion-button>
               </ion-col>
               <ion-col>
                 <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
-                  Update
+                  Atualizar
                 </ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-label><strong>Pergunta</strong></ion-label>
-          <ion-input type="text" [(ngModel)]="item.editPergunta"></ion-input>
-        </ion-item>
-      </ion-card-content>
+      
     </ng-template>
   </ion-card>
 

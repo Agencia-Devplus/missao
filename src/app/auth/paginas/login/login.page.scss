@@ -1,0 +1,56 @@
+.brand {
+    max-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+ion-grid{
+    padding-bottom: 75%;
+}
+
+.item {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+}
+
+.prattika-login-bg {
+    background-attachment: fixed;
+    background-image: url("../../../../assets/img/background2.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+}
+
+.prattika-rgb-bg {
+    background: rgba(55, 101, 170, 1.0);
+    background: -webkit-linear-gradient(top left, rgba(55, 101, 170, 1.0), rgba(68, 114, 248, 1.0));
+    background: -moz-linear-gradient(top left, rgba(55, 101, 170, 1.0), rgba(68, 114, 248, 1.0));
+    background: linear-gradient(to bottom right, rgba(55, 101, 170, 1.0), rgba(68, 114, 248, 1.0));
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+}

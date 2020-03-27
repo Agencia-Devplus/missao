@@ -1,0 +1,47 @@
+ion-toolbar {
+    --background: url('../../../assets/img/barra2.png') no-repeat fixed center; 
+ }
+ion-item {
+    --background: url('../../../assets/img/background.png') no-repeat center center / cover !important;
+  }
+  ion-content {
+    --background: url('../../../assets/img/background.png') no-repeat center center / cover !important;
+  }
+  ion-card {
+    background: #ffffff;
+  }
+ion-title { 
+  color: #053A4D;
+  font-size: 1.5em;
+}
+ion-card-content{
+  white-space: normal !important;
+  color: rgb(53, 50, 50) !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+  .card-background-page {
+
+    ion-card {
+      position: relative;
+      text-align: center;
+    }
+  
+    .card-title {
+      position: absolute;
+      top: 36%;
+      font-size: 2.0em;
+      width: 100%;
+      font-weight: bold;
+      color: #053A4D;
+    }
+  
+    .card-subtitle {
+      font-size: 1.0em;
+      position: absolute;
+      top: 52%;
+      width: 100%;
+      color: #053A4D;
+    }
+  
+  }

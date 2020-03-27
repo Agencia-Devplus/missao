@@ -36,6 +36,97 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'addpergunta',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../addpergunta/addpergunta.module').then(m => m.AddperguntaPageModule)
+          }
+        ]
+      },
+      {
+        path: 'projeto',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../projeto/projeto.module').then(m => m.ProjetoPageModule)
+          }
+        ]
+      },
+      {
+        path: 'apoiadores',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../apoiadores/apoiadores.module').then(m => m.ApoiadoresPageModule)
+          }
+        ]
+      },{
+        path: 'video',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../video/video.module').then(m => m.VideoPageModule)
+          }
+        ]
+      },{
+        path: 'nutricao',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../nutricao/nutricao.module').then(m => m.NutricaoPageModule)
+          }
+        ]
+      },{
+        path: 'saude-mental',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../saude-mental/saude-mental.module').then(m => m.SaudeMentalPageModule)
+          }
+        ]
+      },{
+        path: 'saude-idoso',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../saude-idoso/saude-idoso.module').then(m => m.SaudeIdosoPageModule)
+          }
+        ]
+      },{
+        path: 'saude-mulher',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../saude-mulher/saude-mulher.module').then(m => m.SaudeMulherPageModule)
+          }
+        ]
+      },{
+        path: 'saude-homem',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../saude-homem/saude-homem.module').then(m => m.SaudeHomemPageModule)
+          }
+        ]
+      },{
+        path: 'saude-crianca',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../saude-crianca/saude-crianca.module').then(m => m.SaudeCriancaPageModule)
+          }
+        ]
+      },{
+        path: 'saude-adolescente',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../saude-adolescente/saude-adolescente.module').then(m => m.SaudeAdolescentePageModule)
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/painel/home',
         pathMatch: 'full'

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
-import { CompartilhadoModule } from 'src/app/compartilhado/compartilhado---flat/compartilhado.module';
+import { CompartilhadoModule } from 'src/app/compartilhado/compartilhado.module';
 
 @NgModule({
   imports: [

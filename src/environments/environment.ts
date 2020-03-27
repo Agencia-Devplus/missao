@@ -5,13 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyCBEJZmGRpcB2wHReSN_mPQf6tZhFBr6O0",
-    authDomain: "ionic-firebase-tasks-69b55.firebaseapp.com",
-    databaseURL: "https://ionic-firebase-tasks-69b55.firebaseio.com",
-    projectId: "ionic-firebase-tasks-69b55",
-    storageBucket: "ionic-firebase-tasks-69b55.appspot.com",
-    messagingSenderId: "619805101328",
-    appId: "1:619805101328:web:79ec12ab668b7ce9c1e995"
+    apiKey: "AIzaSyCmirODw1hVXVZN2ayq4I3xQDLvHH-QI5I",
+    authDomain: "missao-saude-76ab6.firebaseapp.com",
+    databaseURL: "https://missao-saude-76ab6.firebaseio.com",
+    projectId: "missao-saude-76ab6",
+    storageBucket: "missao-saude-76ab6.appspot.com",
+    messagingSenderId: "934842231492",
+    appId: "1:934842231492:web:365e5289235daaba947791",
+    measurementId: "G-6BJNKD0H5C"
   }
 };
 

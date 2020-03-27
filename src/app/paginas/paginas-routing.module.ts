@@ -42,7 +42,56 @@ const routes: Routes = [
                 ]
             }
         ]
-    }
+    },
+  {
+    path: 'addpergunta',
+    loadChildren: () => import('./addpergunta/addpergunta.module').then( m => m.AddperguntaPageModule)
+  },
+  {
+    path: 'apoiadores',
+    loadChildren: () => import('./apoiadores/apoiadores.module').then( m => m.ApoiadoresPageModule)
+  },
+  {
+    path: 'video',
+    loadChildren: () => import('./video/video.module').then( m => m.VideoPageModule)
+  },
+  {
+    path: 'nutricao',
+    loadChildren: () => import('./nutricao/nutricao.module').then( m => m.NutricaoPageModule)
+  },
+  {
+    path: 'saude-mental',
+    loadChildren: () => import('./saude-mental/saude-mental.module').then( m => m.SaudeMentalPageModule)
+  },
+  {
+    path: 'saude-idoso',
+    loadChildren: () => import('./saude-idoso/saude-idoso.module').then( m => m.SaudeIdosoPageModule)
+  },
+  {
+    path: 'saude-mulher',
+    loadChildren: () => import('./saude-mulher/saude-mulher.module').then( m => m.SaudeMulherPageModule)
+  },
+  {
+    path: 'saude-homem',
+    loadChildren: () => import('./saude-homem/saude-homem.module').then( m => m.SaudeHomemPageModule)
+  },
+  {
+    path: 'saude-crianca',
+    loadChildren: () => import('./saude-crianca/saude-crianca.module').then( m => m.SaudeCriancaPageModule)
+  },
+  {
+    path: 'saude-adolescente',
+    loadChildren: () => import('./saude-adolescente/saude-adolescente.module').then( m => m.SaudeAdolescentePageModule)
+  },
+  {
+    path: 'projeto',
+    loadChildren: () => import('./projeto/projeto.module').then( m => m.ProjetoPageModule)
+  },  {
+    path: 'forum-popover',
+    loadChildren: () => import('./forum-popover/forum-popover.module').then( m => m.ForumPopoverPageModule)
+  }
+
+
 ];
 
 

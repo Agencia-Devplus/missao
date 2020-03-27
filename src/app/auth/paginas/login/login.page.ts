@@ -3,8 +3,12 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AuthProvider } from 'src/app/core/services/auth.types';
 import { OverlayService } from 'src/app/core/services/overlay.service';
-import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavController, Platform, LoadingController } from '@ionic/angular';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { AngularFireAuth } from '@angular/fire/auth';
+
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-login',
@@ -22,16 +26,30 @@ export class LoginPage implements OnInit {
 
   private nameControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
+  loading: any;
+
   constructor(private authService: AuthService,
     private formBuilder: FormBuilder,
     private overlayService: OverlayService,
     private rotaAtiva: ActivatedRoute,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private google: GooglePlus,
+    private router: Router,
+    private platform: Platform,
+    public loadingController: LoadingController,
+    private fireAuth: AngularFireAuth
   ) { }
 
   ngOnInit(): void {
     this.criarFormulario();
+    this.carregar();
+    
 
+  }
+  async carregar(){
+    this.loading = await this.loadingController.create({
+      message: 'Connecting ...'
+    });
   }
 
   private criarFormulario(): void {
@@ -79,5 +97,47 @@ export class LoginPage implements OnInit {
       loading.dismiss();
     }
   }
+
+  /* Login Google */
+  async presentLoading(loading) {
+    await loading.present();
+  }
+
+
+  async loginGoogle() {
+    let params;
+    if (this.platform.is('android')) {
+      params = {
+        'webClientId': '934842231492-nq83lhgf1c7dlgbdn0r83leemtivt6qr.apps.googleusercontent.com',
+        'offline': true
+      }
+    }
+    else {
+      params = {}
+    }
+    this.google.login(params)
+      .then((response) => {
+        const { idToken, accessToken } = response
+        this.onLoginSuccess(idToken, accessToken);
+      }).catch((error) => {
+        console.log(error)
+        alert('error:' + JSON.stringify(error))
+      });
+  }
+  onLoginSuccess(accessToken, accessSecret) {
+    const credential = accessSecret ? firebase.auth.GoogleAuthProvider
+        .credential(accessToken, accessSecret) : firebase.auth.GoogleAuthProvider
+            .credential(accessToken);
+    this.fireAuth.auth.signInWithCredential(credential)
+      .then((response) => {
+        this.router.navigate(["/inicio/painel/home"]);
+        this.loading.dismiss();
+      })
+
+  }
+  onLoginError(err) {
+    console.log(err);
+  }
+  
 
 }

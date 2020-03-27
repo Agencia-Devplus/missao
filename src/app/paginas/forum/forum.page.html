@@ -1,9 +1,98 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>forum</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-card class="ion-no-margin" *ngFor="let item of perguntas">
+    <ion-grid>
+      <span *ngIf="!item.isEdit; else elseBlock">
+
+        <ion-row>
+          <ion-col size="2" class="ion-align-self-start">
+            <div class="wrap-avatar circle" (click)="abrirGaleria()">
+              <img [src]="item.usuarioFoto" />
+            </div>
+          </ion-col>
+          <ion-col size="8" >
+            <div >
+              <h2 class="txt-dark  fw-600 fs-18" style="margin-top: 15px;">{{ item.usuario }}</h2>
+            </div>
+          </ion-col>
+          <ion-col size="2">
+          </ion-col>
+          <ion-col>
+            <!-- Toolbar Postagem-->
+            <ion-toolbar>
+              <ion-buttons slot="start">
+                  <ion-button>
+                      <ion-icon name="happy"></ion-icon>
+                  </ion-button>
+              </ion-buttons>
+              <ion-buttons slot="end" *ngIf="user.uid == id_user_pergunta">
+                  <ion-button color="primary" fill="clear" (click)="EditRecord(item)">
+                      <ion-icon name="create"></ion-icon>
+                  </ion-button>
+                  <ion-button color="danger" fill="clear" (click)="RemoveRecord(item.id)">
+                      <ion-icon name="trash"></ion-icon>
+                  </ion-button>
+              </ion-buttons>
+          </ion-toolbar>
+          <!-- Fim Toolbar Postagem-->
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="bg-pergunta">
+            <div >
+              <p class="txt-light fs-17 pd-10 ion-text-justify">{{item.pergunta}}</p>
+          </div>
+        </ion-row>
+
+        <!-- <ion-row  >
+          <ion-col class="ion-align-self-start">
+            <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
+              <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+            </ion-button>
+          </ion-col>
+
+          <ion-col class="ion-align-self-center">
+            <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+              <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row> -->
+      </span>
+    </ion-grid>
+    <ng-template #elseBlock>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                Edit
+              </ion-col>
+              <ion-col>
+                <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                  Cancel
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+                  Update
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label><strong>Pergunta</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.editPergunta"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ng-template>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/inicio/painel/addpergunta']" routerdirection="forward">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

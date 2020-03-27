@@ -1,0 +1,18 @@
+ion-toolbar {
+    --background: url('../../../assets/img/barra2.png') no-repeat fixed center; 
+ }
+ion-item {
+    --background: url('../../../assets/img/background.png') no-repeat center center / cover !important;
+  }
+  ion-content {
+    --background: url('../../../assets/img/background.png') no-repeat center center / cover !important;
+  }
+  ion-card {
+    background: #ffffff;
+  }
+  ion-card-content{
+    white-space: normal !important;
+    color: rgb(53, 50, 50) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+  }

@@ -127,6 +127,48 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'comentarios-forum/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../comentarios-forum/comentarios-forum.module').then(m => m.ComentariosForumPageModule)
+          }
+        ]
+      },{
+        path: 'controlar-hipertensao',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../controlar-hipertensao/controlar-hipertensao.module').then(m => m.ControlarHipertensaoPageModule)
+          }
+        ]
+      },{
+        path: 'coluna-saudavel',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../coluna-saudavel/coluna-saudavel.module').then(m => m.ColunaSaudavelPageModule)
+          }
+        ]
+      },{
+        path: 'prevencao-dengue',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../prevencao-dengue/prevencao-dengue.module').then(m => m.PrevencaoDenguePageModule)
+          }
+        ]
+      },
+      {
+        path: 'disfuncoes',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../disfuncoes/disfuncoes.module').then(m => m.DisfuncoesPageModule)
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/painel/home',
         pathMatch: 'full'

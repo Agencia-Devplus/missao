@@ -86,10 +86,31 @@ const routes: Routes = [
   {
     path: 'projeto',
     loadChildren: () => import('./projeto/projeto.module').then( m => m.ProjetoPageModule)
-  },  {
+  },
+  {
     path: 'forum-popover',
     loadChildren: () => import('./forum-popover/forum-popover.module').then( m => m.ForumPopoverPageModule)
+  },
+  {
+    path: 'comentarios-forum/:id',
+    loadChildren: () => import('./comentarios-forum/comentarios-forum.module').then( m => m.ComentariosForumPageModule)
+  },  {
+    path: 'controlar-hipertensao',
+    loadChildren: () => import('./controlar-hipertensao/controlar-hipertensao.module').then( m => m.ControlarHipertensaoPageModule)
+  },
+  {
+    path: 'coluna-saudavel',
+    loadChildren: () => import('./coluna-saudavel/coluna-saudavel.module').then( m => m.ColunaSaudavelPageModule)
+  },
+  {
+    path: 'prevencao-dengue',
+    loadChildren: () => import('./prevencao-dengue/prevencao-dengue.module').then( m => m.PrevencaoDenguePageModule)
+  },
+  {
+    path: 'disfuncoes',
+    loadChildren: () => import('./disfuncoes/disfuncoes.module').then( m => m.DisfuncoesPageModule)
   }
+
 
 
 ];

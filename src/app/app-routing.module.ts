@@ -12,7 +12,8 @@ const routes: Routes = [
     path: 'inicio',
     loadChildren: './paginas/paginas.module#PaginasModule',
     canLoad: [AuthGuard]
-  },
+  }
+
   
 ];
 

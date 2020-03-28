@@ -18,6 +18,7 @@ export class AddperguntaPage implements OnInit {
   perguntas: any;
   pergunta: string;
   categoria: string;
+  dataPergunta: any;
 
   constructor(private auth: AuthService, public router: Router,
     private crudService: CrudService, public loadingController: LoadingController) {
@@ -46,9 +47,11 @@ export class AddperguntaPage implements OnInit {
     record['usuario'] = this.user.displayName;
     record['usuarioFoto'] = this.user.photoURL;
     record['id_usuario'] = this.user.uid;
+    record['dataPergunta'] = new Date();
     this.crudService.create_NovaPergunta(record).then(resp => {
       this.pergunta = "";
       this.categoria = "";
+      this.dataPergunta;
       this.user.displayName;
       this.user.photoURL;
       this.presentLoading();

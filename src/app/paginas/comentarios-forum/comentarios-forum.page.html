@@ -1,14 +1,19 @@
 <ion-header>
-<ion-toolbar class="bg-header">
-  <ion-buttons slot="start">
-      <ion-title >Forum</ion-title>
-  </ion-buttons>
-  
-</ion-toolbar>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/inicio/painel/forum"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Expressem sua opnião</ion-title>
+      <!-- <ion-buttons slot="end">
+          <ion-button fill="clear" (click)="abrirMenu($event)">
+              <ion-icon name="ellipsis-vertical"></ion-icon>
+          </ion-button>
+      </ion-buttons> -->
+  </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card class="ion-no-margin pdb-10" *ngFor="let item of perguntas">
+<ion-content *ngFor="let item of pergunta">
+  
     <ion-grid>
       <span *ngIf="!item.isEdit; else elseBlock">
 
@@ -41,24 +46,11 @@
           
         </ion-row>
 
-        <ion-row class="bg-pergunta" [routerLink]="['/inicio/painel/comentarios-forum/' + item.id]" routerdirection="forward">
+        <ion-row class="bg-pergunta">
             <div >
               <p class="txt-light fs-17 pd-10 ion-text-justify">{{item.pergunta}}</p>
           </div>
         </ion-row>
-<div *ngFor="let coment of comentarios" >
-        <ion-row *ngIf="item.id == coment.id_pergunta">
-          <ion-col size="2" class="ion-align-self-start">
-            <div class="wrap-avatar circle" (click)="abrirGaleria()">
-              <img [src]="coment.usuarioFoto" />
-            </div>
-          </ion-col>
-          <ion-col size="10" class="txt-dark  fw-400 pdl-20 fs-15 ion-text-justify">
-            <strong>{{coment.usuario}}</strong> {{coment.comentario}}
-          </ion-col>
-        </ion-row>
-      </div>
-        
 
         <!-- <ion-row  >
           <ion-col class="ion-align-self-start">
@@ -99,14 +91,44 @@
           </ion-grid>
         </ion-card-title>
       </ion-card-header>
-      
     </ng-template>
-  </ion-card>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/inicio/painel/addpergunta']" routerdirection="forward">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <p  class="txt-dark  fw-500 pdl-20 fs-15">Comentários</p>
+  <ion-grid *ngFor="let coment of comentarios" >
+    <ion-list class="ion-no-margin" >
+      <ion-item>
+      <ion-row>
+        <ion-col size="2" class="ion-align-self-start">
+          <div class="wrap-avatar circle" (click)="abrirGaleria()">
+            <img [src]="coment.usuarioFoto" />
+          </div>
+        </ion-col>
+        <ion-col size="10" class="txt-dark  fw-400 pdl-20 fs-15 ion-text-justify">
+          <strong>{{coment.usuario}}</strong> {{coment.comentario}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+
+    </ion-list>
+  </ion-grid>
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10">
+  <ion-input placeholder="Comente algo..." [(ngModel)]="comentario"></ion-input>
+</ion-col>
+<ion-col size="2">
+  <ion-buttons end>
+    <ion-button icon-right (click)="criarComentario()">
+      <ion-icon icon-only name="send"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-col>
+</ion-row>
+</ion-grid>
+  </ion-toolbar>
+</ion-footer>
+

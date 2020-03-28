@@ -8,6 +8,7 @@ import { ForumPopoverPage } from '../forum-popover/forum-popover.page';
 import { OverlayService } from 'src/app/core/services/overlay.service';
 
 
+
 @Component({
   selector: 'app-forum',
   templateUrl: './forum.page.html',
@@ -21,6 +22,7 @@ export class ForumPage implements OnInit {
   postagemTexto: string;
   id_user_pergunta: any;
   idpergunta: string;
+  comentarios: any;
 
   constructor(private auth: AuthService, public router: Router, private navCtrl: NavController,
     private crudService: CrudService, private popoverController: PopoverController,
@@ -33,6 +35,7 @@ export class ForumPage implements OnInit {
 
   ngOnInit() {
     this.listarPerguntas();
+    this.listarComentariosPergunta();
   }
 
   /* CRUD POSTAGEM */
@@ -102,5 +105,28 @@ export class ForumPage implements OnInit {
     });
     popover.present();
   }
+  /* fim crud postagem */
+
+  /* Listar ultimo Comentário */
+  listarComentariosPergunta(){
+
+    this.crudService.read_ComentariosPergunta(this.idpergunta).subscribe(data => {
+
+      this.comentarios = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          comentario: e.payload.doc.data()['comentario'],
+          usuario: e.payload.doc.data()['usuario'],
+          usuarioFoto: e.payload.doc.data()['usuarioFoto'],
+          id_user_pergunta: e.payload.doc.data()['id_usuario'],
+          id_pergunta: e.payload.doc.data()['id_pergunta']
+        };
+      })
+      console.log(this.comentarios);
+
+    });
+  }
+  
 
 }

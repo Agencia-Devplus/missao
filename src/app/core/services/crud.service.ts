@@ -37,4 +37,34 @@ export class CrudService {
     return this.firestore.collection('Perguntas').doc(recordID).get();
     }
   /* FIM CRUD POSTAGENS */
+
+     /* CRUD POSTAGENS */
+     create_NovoComentario(record) {
+      return this.firestore.collection('Comentarios').add(record);
+    }
+   
+    read_Comentarios() {
+      return this.firestore.collection('Comentarios').snapshotChanges();
+    }
+  
+    read_ComentariosUsuario(userID) {
+      return this.firestore.collection('Comentarios', ref => ref.where('usuario','==', userID)).snapshotChanges();
+    }
+    read_ComentariosPergunta(record_id){
+      return this.firestore.collection('Comentarios', ref => ref.where('id_pergunta','==', record_id)).snapshotChanges();
+
+    }
+   
+    update_Comentario(recordID,record){
+      this.firestore.doc('Comentarios/' + recordID).update(record);
+    }
+   
+    delete_Comentario(record_id) {
+      this.firestore.doc('Comentarios/' + record_id).delete();
+    }
+    
+    detail_Comentario(recordID) {
+      return this.firestore.collection('Comentarios').doc(recordID).get();
+      }
+    /* FIM CRUD POSTAGENS */
 }

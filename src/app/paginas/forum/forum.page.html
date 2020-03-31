@@ -1,10 +1,10 @@
 <ion-header>
-<ion-toolbar class="bg-header">
-  <ion-buttons slot="start">
-      <ion-title >Forum</ion-title>
-  </ion-buttons>
-  
-</ion-toolbar>
+  <ion-toolbar class="bg-header">
+    <ion-buttons slot="start">
+      <ion-title>Forum</ion-title>
+    </ion-buttons>
+
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -18,47 +18,51 @@
               <img [src]="item.usuarioFoto" />
             </div>
           </ion-col>
-          <ion-col size="6" >
-            <div >
+          <ion-col size="10">
+            <div>
               <h2 class="txt-dark  fw-600 fs-18" style="margin-top: 15px;">{{ item.usuario }}</h2>
             </div>
           </ion-col>
-          <ion-col size="4">
-            <!-- Toolbar Postagem-->
+          <!-- <ion-col size="4">
+            //Toolbar Postagem
             <ion-toolbar>
-              
-              <ion-buttons slot="end" *ngIf="user.uid == item.id_user_pergunta">
-                  <ion-button color="primary" fill="clear" (click)="EditRecord(item)">
-                    <ion-icon name="create"></ion-icon>
-                  </ion-button>
-                  <ion-button color="danger" fill="clear" (click)="RemoveRecord(item.id)">
-                      <ion-icon name="trash"></ion-icon>
-                  </ion-button>
-              </ion-buttons>
-          </ion-toolbar>
-          <!-- Fim Toolbar Postagem-->
-          </ion-col>
-          
-        </ion-row>
 
-        <ion-row class="bg-pergunta" [routerLink]="['/inicio/painel/comentarios-forum/' + item.id]" routerdirection="forward">
-            <div >
-              <p class="txt-light fs-17 pd-10 ion-text-justify">{{item.pergunta}}</p>
+              <ion-buttons slot="end" *ngIf="user.uid == item.id_user_pergunta">
+                <ion-button color="primary" fill="clear" (click)="EditRecord(item)">
+                  <ion-icon name="create"></ion-icon>
+                </ion-button>
+                <ion-button color="danger" fill="clear" (click)="RemoveRecord(item.id)">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+           // Fim Toolbar Postagem
+          </ion-col> -->
+
+        </ion-row>
+<div [ngStyle]="{'background-color':item.categoria === 'categoria1' ? '#698eac' : '#7dd1f0' }">
+        <ion-row [routerLink]="['/inicio/painel/comentarios-forum/' + item.id]"
+          routerdirection="forward">
+          <div>
+            <p class="txt-light fs-17 pd-10 ion-text-justify">{{item.pergunta}}</p>
           </div>
         </ion-row>
-<div *ngFor="let coment of comentarios" >
-        <ion-row *ngIf="item.id == coment.id_pergunta">
-          <ion-col size="2" class="ion-align-self-start">
-            <div class="wrap-avatar circle" (click)="abrirGaleria()">
-              <img [src]="coment.usuarioFoto" />
-            </div>
-          </ion-col>
-          <ion-col size="10" class="txt-dark  fw-400 pdl-20 fs-15 ion-text-justify">
-            <strong>{{coment.usuario}}</strong> {{coment.comentario}}
-          </ion-col>
-        </ion-row>
       </div>
-        
+        <div *ngFor="let coment of comentarios; let i = index; let lst = last;" >
+          <div *ngIf="item.id == coment.id_pergunta"  >
+          <ion-row class="pdt2">
+            <ion-col size="2" class="ion-align-self-start">
+              <div class="wrap-avatar circle">
+                <img [src]="coment.usuarioFoto" />
+              </div>
+            </ion-col>
+            <ion-col size="10" class="txt-dark  fw-400 pdl-10 fs-15 ion-text-justify" style="margin-top: 15px;">
+              <strong>{{coment.usuario}}</strong> {{coment.comentario}} <span *ngIf="lst">ultimo</span>
+            </ion-col>
+          </ion-row>
+        </div>
+        </div>
+
 
         <!-- <ion-row  >
           <ion-col class="ion-align-self-start">
@@ -76,7 +80,7 @@
       </span>
     </ion-grid>
     <ng-template #elseBlock>
-      
+
       <ion-card-header>
         <ion-card-title>
           <ion-item class="txt-dark fs-15 pd-10 edi-pergunta">
@@ -84,7 +88,7 @@
           </ion-item>
           <ion-grid>
             <ion-row class="txt-dark fs-15 pd-10">
-              
+
               <ion-col>
                 <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
                   Cancelar
@@ -99,7 +103,7 @@
           </ion-grid>
         </ion-card-title>
       </ion-card-header>
-      
+
     </ng-template>
   </ion-card>
 

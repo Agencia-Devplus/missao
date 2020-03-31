@@ -54,6 +54,7 @@ export class AddperguntaPage implements OnInit {
       this.dataPergunta;
       this.user.displayName;
       this.user.photoURL;
+      this.user.uid;
       this.presentLoading();
       this.router.navigate(['/inicio/painel/forum'])
 

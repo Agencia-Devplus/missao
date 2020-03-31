@@ -98,8 +98,8 @@
       },
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "_ZLceN_aQB66Uo5DSgQT5t9c",
-        "WEB_APPLICATION_CLIENT_ID": "934842231492-nq83lhgf1c7dlgbdn0r83leemtivt6qr.apps.googleusercontent.com",
+        "REVERSED_CLIENT_ID": "934842231492-nq83lhgf1c7dlgbdn0r83leemtivt6qr.apps.googleusercontent.com",
+        "WEB_APPLICATION_CLIENT_ID": "_ZLceN_aQB66Uo5DSgQT5t9c",
         "PLAY_SERVICES_VERSION": "15.0.1"
       }
     },

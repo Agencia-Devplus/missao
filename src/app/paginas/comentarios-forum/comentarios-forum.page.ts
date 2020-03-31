@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from 'src/app/core/services/crud.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PopoverController, NavController, LoadingController } from '@ionic/angular';
 import { OverlayService } from 'src/app/core/services/overlay.service';
+import { ForumPopoverPage } from '../forum-popover/forum-popover.page';
 
 import * as firebase from 'firebase/app';
 
@@ -28,7 +29,8 @@ export class ComentariosForumPage implements OnInit {
     private auth: AuthService,
     private popoverController: PopoverController,
     private navCtrl: NavController,
-    private overlay: OverlayService) { 
+    private overlay: OverlayService,
+    private router: Router) { 
       this.auth.authState$.subscribe(user => (this.user = user));
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.idpergunta = params.get('id')
@@ -68,6 +70,7 @@ export class ComentariosForumPage implements OnInit {
       this.id_user_pergunta = data.get('id');
       //convertendo objeto em array
       this.pergunta = Array.of(this.pergunta);
+      console.log(this.pergunta);
     })
   }
 
@@ -78,7 +81,7 @@ export class ComentariosForumPage implements OnInit {
     record['usuarioFoto'] = this.user.photoURL;
     record['id_usuario'] = this.user.uid;
     record['id_pergunta'] = this.idpergunta;
-    this.crudService.create_NovoComentario(record).then(resp => {
+    this.crudService.create_NovoComentario(this.idpergunta, record).then(resp => {
       this.comentario = "";
       this.user.displayName;
       this.user.photoURL;
@@ -89,25 +92,6 @@ export class ComentariosForumPage implements OnInit {
         console.log(error);
       });
   }
-
-  /* listarComentarios() {
-    this.crudService.read_Comentarios().subscribe(data => {
-
-      this.comentarios = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          isEdit: false,
-          comentario: e.payload.doc.data()['comentario'],
-          usuario: e.payload.doc.data()['usuario'],
-          usuarioFoto: e.payload.doc.data()['usuarioFoto'],
-          id_user_pergunta: e.payload.doc.data()['id_usuario'],
-          id_pergunta: e.payload.doc.data()['id_pergunta']
-        };
-      })
-      console.log(this.comentarios);
-
-    });
-  } */
   listarComentariosPergunta(){
 
     this.crudService.read_ComentariosPergunta(this.idpergunta).subscribe(data => {
@@ -126,6 +110,44 @@ export class ComentariosForumPage implements OnInit {
       console.log(this.comentarios);
 
     });
+  }
+
+  /* Editar e excluir pergunta */
+
+  async RemoveRecord(rowID) {
+    await this.overlay.alert({
+      message: 'Deseja realmente apagar sua pergunta??',
+      buttons: [{
+        text: 'Sim',
+        handler: async () => {
+          this.crudService.delete_Pergunta(rowID);
+          this.presentLoading();
+          this.router.navigate(["/inicio/painel/forum"]);
+          
+        }
+      },
+        'Não'
+      ]
+    })
+  }
+
+  EditRecord(record) {
+    record.isEdit = true;
+    record.editPergunta = record.pergunta;
+    record.editCategoria = record.categoria;
+  }
+
+  async abrirMenu(ev: Event) {
+    const popover = await this.popoverController.create({
+      component: ForumPopoverPage,
+      componentProps: {
+        id_pergunta: this.idpergunta,
+        id_user: this.user.uid,
+        id_user_pergunta: this.id_user_pergunta
+      },
+      event: ev
+    });
+    popover.present();
   }
 
 }

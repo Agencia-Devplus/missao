@@ -52,65 +52,17 @@ export class ForumPage implements OnInit {
           usuario: e.payload.doc.data()['usuario'],
           usuarioFoto: e.payload.doc.data()['usuarioFoto'],
           id_user_pergunta: e.payload.doc.data()['id_usuario']
+          
         };
       })
       console.log(this.perguntas);
 
     });
   }
-  /* getPergunta() {
-    this.crudService.read_Perguntas().subscribe(data => {
-      this.pergunta = data.data();
-      this.id_user_pergunta = data.get('id');
-      //convertendo objeto em array
-      this.pergunta = Array.of(this.pergunta);
-    })
-  } */
-
-  
-
-  /* RemoveRecord(rowID) {
-    this.crudService.delete_Pergunta(rowID);
-  } */
- async RemoveRecord(rowID) {
-    await this.overlay.alert({
-      message: 'Deseja realmente apagar sua pergunta??',
-      buttons: [{
-        text: 'Sim',
-        handler: async () => {
-          this.crudService.delete_Pergunta(rowID);
-          this.navCtrl.pop();
-        }
-      },
-        'Não'
-      ]
-    })
-  }
-
-  EditRecord(record) {
-    record.isEdit = true;
-    record.editPergunta = record.pergunta;
-    record.editCategoria = record.categoria;
-  }
-
-  async abrirMenu(ev: Event) {
-    const popover = await this.popoverController.create({
-      component: ForumPopoverPage,
-      componentProps: {
-        id_pergunta: this.idpergunta,
-        id_user: this.user.uid,
-        id_user_pergunta: this.id_user_pergunta
-      },
-      event: ev
-    });
-    popover.present();
-  }
-  /* fim crud postagem */
-
   /* Listar ultimo Comentário */
   listarComentariosPergunta(){
 
-    this.crudService.read_ComentariosPergunta(this.idpergunta).subscribe(data => {
+    this.crudService.read_Comentarios().subscribe(data => {
 
       this.comentarios = data.map(e => {
         return {
@@ -127,6 +79,63 @@ export class ForumPage implements OnInit {
 
     });
   }
+  listarComentarioPergunta(){
+
+    this.crudService.read_ComentariosPergunta(this.perguntas.id).subscribe(data => {
+
+      this.comentarios = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          comentario: e.payload.doc.data()['comentario'],
+          usuario: e.payload.doc.data()['usuario'],
+          usuarioFoto: e.payload.doc.data()['usuarioFoto'],
+          id_user_pergunta: e.payload.doc.data()['id_usuario'],
+          id_pergunta: e.payload.doc.data()['id_pergunta']
+        };
+      })
+      console.log(this.comentarios);
+
+    });
+  }
+
+ /* async RemoveRecord(rowID) {
+    await this.overlay.alert({
+      message: 'Deseja realmente apagar sua pergunta??',
+      buttons: [{
+        text: 'Sim',
+        handler: async () => {
+          this.crudService.delete_Pergunta(rowID);
+          this.crudService.delete_ComentariosPergunta(rowID);
+          this.navCtrl.pop();
+        }
+      },
+        'Não'
+      ]
+    })
+  }
+
+  EditRecord(record) {
+    record.isEdit = true;
+    record.editPergunta = record.pergunta;
+    record.editCategoria = record.categoria;
+  } */
+
+  async abrirMenu(ev: Event) {
+    const popover = await this.popoverController.create({
+      component: ForumPopoverPage,
+      componentProps: {
+        id_pergunta: this.idpergunta,
+        id_user: this.user.uid,
+        id_user_pergunta: this.id_user_pergunta
+      },
+      event: ev
+    });
+    popover.present();
+  }
+  /* fim crud postagem */
+
+  
   
 
 }

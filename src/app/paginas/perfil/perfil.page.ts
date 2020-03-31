@@ -45,7 +45,7 @@ export class PerfilPage implements OnInit {
     this.listarPerguntasUsuario();
   }
   listarPerguntasUsuario() {
-    this.crudService.read_PerguntasUsuario(firebase.auth().currentUser.displayName).subscribe(data => {
+    this.crudService.read_PerguntasUsuario(firebase.auth().currentUser.uid).subscribe(data => {
 
       this.perguntas = data.map(e => {
         return {

@@ -32,11 +32,11 @@
             <!-- Toolbar Postagem-->
             <ion-toolbar>
               
-              <ion-buttons slot="end" *ngIf="user.uid == item.id_user_pergunta">
+              <ion-buttons slot="end" *ngIf="user.uid == item.id_usuario">
                   <ion-button color="primary" fill="clear" (click)="EditRecord(item)">
                     <ion-icon name="create"></ion-icon>
                   </ion-button>
-                  <ion-button color="danger" fill="clear" (click)="RemoveRecord(item.id)">
+                  <ion-button color="danger" fill="clear" (click)="RemoveRecord(idpergunta)">
                       <ion-icon name="trash"></ion-icon>
                   </ion-button>
               </ion-buttons>
@@ -51,20 +51,6 @@
               <p class="txt-light fs-17 pd-10 ion-text-justify">{{item.pergunta}}</p>
           </div>
         </ion-row>
-
-        <!-- <ion-row  >
-          <ion-col class="ion-align-self-start">
-            <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
-              <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
-            </ion-button>
-          </ion-col>
-
-          <ion-col class="ion-align-self-center">
-            <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
-              <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row> -->
       </span>
     </ion-grid>
     <ng-template #elseBlock>

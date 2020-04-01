@@ -1,56 +1,63 @@
+<ion-header>
+    <ion-toolbar class="bg-header">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/inicio/painel/home"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 <ion-content>
-  <ion-card class="welcome-card">
-    <img src="../../../assets/img/saude-homem-capa.jpg">
-    <ion-card-header>
-      <!-- <ion-card-subtitle>Get Started</ion-card-subtitle> -->
-      <ion-card-title color="primary">SAÚDE DO HOMEM</ion-card-title>
-    </ion-card-header>
-  </ion-card>
+    <ion-card class="welcome-card">
+        <img src="../../../assets/img/saude-homem-capa.jpg">
+        <ion-card-header>
+            <!-- <ion-card-subtitle>Get Started</ion-card-subtitle> -->
+            <ion-card-title color="primary">SAÚDE DO HOMEM</ion-card-title>
+        </ion-card-header>
+    </ion-card>
 
 
-  <ion-item [routerLink]="['/inicio/painel/controlar-hipertensao']" routerdirection="forward">
-    <ion-thumbnail slot="start">
-      <img src="assets/img/saude-homem-1.jpg">
-    </ion-thumbnail>
-    <ion-label>
-      8 Dicas para evitar e controlar a hipertensão
-    </ion-label>
-  </ion-item>
+    <ion-item [routerLink]="['/inicio/painel/controlar-hipertensao']" routerdirection="forward">
+        <ion-thumbnail slot="start">
+            <img src="assets/img/saude-homem-1.jpg">
+        </ion-thumbnail>
+        <ion-label>
+            8 Dicas para evitar e controlar a hipertensão
+        </ion-label>
+    </ion-item>
 
-  <ion-item [routerLink]="['/inicio/painel/coluna-saudavel']" routerdirection="forward">
-    <ion-thumbnail slot="start">
-      <img src="assets/img/saude-homem-2.jpg">
-    </ion-thumbnail>
-    <ion-label color="primary">
-      Dicas para uma coluna saudável
-    </ion-label>
-  </ion-item>
+    <ion-item [routerLink]="['/inicio/painel/coluna-saudavel']" routerdirection="forward">
+        <ion-thumbnail slot="start">
+            <img src="assets/img/saude-homem-2.jpg">
+        </ion-thumbnail>
+        <ion-label color="primary">
+            Dicas para uma coluna saudável
+        </ion-label>
+    </ion-item>
 
-  <ion-item [routerLink]="['/inicio/painel/prevencao-dengue']" routerdirection="forward">
-    <ion-thumbnail slot="start">
-      <img src="assets/img/saude-homem-3.jpeg">
-    </ion-thumbnail>
-    <ion-label color="primary">
-      Prevenção da dengue: 10 dicas para se cuidar
-    </ion-label>
-  </ion-item>
+    <ion-item [routerLink]="['/inicio/painel/prevencao-dengue']" routerdirection="forward">
+        <ion-thumbnail slot="start">
+            <img src="assets/img/saude-homem-3.jpeg">
+        </ion-thumbnail>
+        <ion-label color="primary">
+            Prevenção da dengue: 10 dicas para se cuidar
+        </ion-label>
+    </ion-item>
 
-  <ion-item [routerLink]="['/inicio/painel/disfuncoes']" routerdirection="forward">
-    <ion-thumbnail slot="start">
-      <img src="assets/img/saude-homem-4.jpg">
-    </ion-thumbnail>
-    <ion-label color="primary">
-      Disfunções miccionais e incontinência urinária
-    </ion-label>
-  </ion-item>
+    <ion-item [routerLink]="['/inicio/painel/disfuncoes']" routerdirection="forward">
+        <ion-thumbnail slot="start">
+            <img src="assets/img/saude-homem-4.jpg">
+        </ion-thumbnail>
+        <ion-label color="primary">
+            Disfunções miccionais e incontinência urinária
+        </ion-label>
+    </ion-item>
 
-  <ion-item (click)="abrirUrl('https://portaldaurologia.org.br/faq/o-que-e-o-psa-antigeno-prostatico-especifico/')">
-    <ion-thumbnail slot="start">
-      <img src="assets/img/saude-homem-5.jpg">
-    </ion-thumbnail>
-    <ion-label>
-      O que é o PSA (Antígeno Prostático Específico)?
-    </ion-label>
-  </ion-item>
+    <ion-item (click)="abrirUrl('https://portaldaurologia.org.br/faq/o-que-e-o-psa-antigeno-prostatico-especifico/')">
+        <ion-thumbnail slot="start">
+            <img src="assets/img/saude-homem-5.jpg">
+        </ion-thumbnail>
+        <ion-label>
+            O que é o PSA (Antígeno Prostático Específico)?
+        </ion-label>
+    </ion-item>
 
 </ion-content>

@@ -1,40 +1,39 @@
-<ion-header >
-  <ion-toolbar class="bg-header">
-      <ion-buttons slot="start">
-          <ion-back-button defaultHref="/inicio/painel/forum"></ion-back-button>
-      </ion-buttons>
-
-  </ion-toolbar>
+<ion-header>
+    <ion-toolbar class="bg-header">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/inicio/painel/forum"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
 
-  <ion-grid fixed="true">
-    
+    <ion-grid fixed="true">
 
-      <ion-item class="item">
-        <ion-textarea auto-grow="true" placeholder="Faça sua pergunta" [(ngModel)]="pergunta"></ion-textarea>
-      </ion-item>
 
-      <ion-item class="item">
-        <ion-label>Escolha um Categoria</ion-label>
-        <ion-select multiple="false" cancelText="Nah" okText="Okay!" [(ngModel)]="categoria">
-          <ion-select-option value="categoria1">Categoria 1 </ion-select-option>
-          <ion-select-option value="categoria2">Categoria 2</ion-select-option>
-          <ion-select-option value="categoria3">Categoria 3</ion-select-option>
-          </ion-select>
-      </ion-item>
+        <ion-item class="item">
+            <ion-textarea auto-grow="true" placeholder="Faça sua pergunta" [(ngModel)]="pergunta"></ion-textarea>
+        </ion-item>
 
-    
+        <ion-item class="item">
+            <ion-label>Escolha um Categoria</ion-label>
+            <ion-select multiple="false" cancelText="Nah" okText="Okay!" [(ngModel)]="categoria">
+                <ion-select-option value="categoria1">Categoria 1 </ion-select-option>
+                <ion-select-option value="categoria2">Categoria 2</ion-select-option>
+                <ion-select-option value="categoria3">Categoria 3</ion-select-option>
+            </ion-select>
+        </ion-item>
 
-    <ion-row>
-      <ion-col class="ion-text-center">
-        <ion-button (click)="criarPergunta()" [disabled]="!pergunta || !categoria">
-          Publicar Pergunta
-        </ion-button>
-      </ion-col>
-    </ion-row>
 
-  </ion-grid>
+
+        <ion-row>
+            <ion-col class="ion-text-center">
+                <ion-button (click)="criarPergunta()" [disabled]="!pergunta || !categoria">
+                    Publicar Pergunta
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
 
 
 </ion-content>

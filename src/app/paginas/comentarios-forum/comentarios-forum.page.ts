@@ -31,12 +31,12 @@ export class ComentariosForumPage implements OnInit {
     private popoverController: PopoverController,
     private navCtrl: NavController,
     private overlay: OverlayService,
-    private router: Router) { 
-      this.auth.authState$.subscribe(user => (this.user = user));
+    private router: Router) {
+    this.auth.authState$.subscribe(user => (this.user = user));
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.idpergunta = params.get('id')
     })
-    }
+  }
 
   async ngOnInit() {
     this.listarComentariosPergunta();
@@ -75,27 +75,41 @@ export class ComentariosForumPage implements OnInit {
     })
   }
 
-   criarComentario() {
-    let record = {};
-    record['comentario'] = this.comentario;
-    record['usuario'] = this.user.displayName;
-    record['usuarioFoto'] = this.user.photoURL;
-    record['id_usuario'] = this.user.uid;
-    record['id_pergunta'] = this.idpergunta;
-    record['dataComentario'] = new Date();
-    this.crudService.create_NovoComentario(this.idpergunta, record).then(resp => {
-      this.comentario = "";
-      this.user.displayName;
-      this.user.photoURL;
-      this.idpergunta="";
-      this.dataComentario;
-      this.presentLoading();
-    })
-      .catch(error => {
-        console.log(error);
-      });
+  async criarComentario() {
+    let loading = await this.overlay.loading();
+    loading.present();
+    try {
+
+      let record = {};
+      record['comentario'] = this.comentario;
+      record['usuario'] = this.user.displayName;
+      record['usuarioFoto'] = this.user.photoURL;
+      record['id_usuario'] = this.user.uid;
+      record['id_pergunta'] = this.idpergunta;
+      record['dataComentario'] = new Date();
+      await this.crudService.create_NovoComentario(this.idpergunta, record).then(resp => {
+        this.comentario = "";
+        this.user.displayName;
+        this.user.photoURL;
+        this.idpergunta = "";
+        this.dataComentario;
+        this.overlay.toast({
+          message: 'Comentário enviado.'
+        })
+      })
+
+    } catch (e) {
+      this.overlay.alert({
+        message: 'Erro: ' + e
+      })
+    } finally {
+      loading.dismiss();
+    }
+
   }
-  listarComentariosPergunta(){
+
+
+  listarComentariosPergunta() {
 
     this.crudService.read_ComentariosPergunta(this.idpergunta).subscribe(data => {
       this.comentarios = data.map(e => {
@@ -126,7 +140,7 @@ export class ComentariosForumPage implements OnInit {
           this.crudService.delete_Pergunta(rowID);
           this.presentLoading();
           this.router.navigate(["/inicio/painel/forum"]);
-          
+
         }
       },
         'Não'

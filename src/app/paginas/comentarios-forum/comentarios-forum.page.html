@@ -1,21 +1,21 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button defaultHref="/inicio/painel/forum"></ion-back-button>
-      </ion-buttons>
-      <ion-title>Expressem sua opnião</ion-title>
-      <!-- <ion-buttons slot="end">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/inicio/painel/forum"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Expresse sua opinião</ion-title>
+        <!-- <ion-buttons slot="end">
           <ion-button fill="clear" (click)="abrirMenu($event)">
               <ion-icon name="ellipsis-vertical"></ion-icon>
           </ion-button>
       </ion-buttons> -->
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content *ngFor="let item of pergunta">
-  
+
     <ion-grid>
-      <span *ngIf="!item.isEdit; else elseBlock">
+        <span *ngIf="!item.isEdit; else elseBlock">
 
         <ion-row>
           <ion-col size="2" class="ion-align-self-start">
@@ -31,7 +31,7 @@
           <ion-col size="4">
             <!-- Toolbar Postagem-->
             <ion-toolbar>
-              
+
               <ion-buttons slot="end" *ngIf="user.uid == item.id_usuario">
                   <ion-button color="primary" fill="clear" (click)="EditRecord(item)">
                     <ion-icon name="create"></ion-icon>
@@ -43,7 +43,7 @@
           </ion-toolbar>
           <!-- Fim Toolbar Postagem-->
           </ion-col>
-          
+
         </ion-row>
 
         <ion-row class="bg-pergunta">
@@ -54,72 +54,71 @@
       </span>
     </ion-grid>
     <ng-template #elseBlock>
-      
-      <ion-card-header>
-        <ion-card-title>
-          <ion-item class="txt-dark fs-15 pd-10 edi-pergunta">
-            <ion-textarea type="text" [(ngModel)]="item.editPergunta"></ion-textarea>
-          </ion-item>
-          <ion-grid>
-            <ion-row class="txt-dark fs-15 pd-10">
-              
-              <ion-col>
-                <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
-                  Cancelar
-                </ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
-                  Atualizar
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-title>
-      </ion-card-header>
+
+        <ion-card-header>
+            <ion-card-title>
+                <ion-item class="txt-dark fs-15 pd-10 edi-pergunta">
+                    <ion-textarea type="text" [(ngModel)]="item.editPergunta"></ion-textarea>
+                </ion-item>
+                <ion-grid>
+                    <ion-row class="txt-dark fs-15 pd-10">
+
+                        <ion-col>
+                            <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                                Cancelar
+                            </ion-button>
+                        </ion-col>
+                        <ion-col>
+                            <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+                                Atualizar
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-title>
+        </ion-card-header>
     </ng-template>
 
-  <p  class="txt-dark  fw-500 pdl-20 fs-15">Comentários</p>
-  <ion-grid *ngFor="let coment of comentarios" >
-    <ion-list class="ion-no-margin" >
-      <ion-item>
-      <ion-row>
-        <ion-col size="2" class="ion-align-self-start">
-          <div class="wrap-avatar circle" (click)="abrirGaleria()">
-            <img [src]="coment.usuarioFoto" />
-          </div>
-        </ion-col>
-        <ion-col size="10" class="txt-dark  fw-400 pdl-20 fs-15 ion-text-justify">
-          <strong>{{coment.usuario}}</strong> {{coment.comentario}}
-        </ion-col>
-      </ion-row>
-    </ion-item>
+    <p class="txt-dark  fw-500 pdl-20 fs-15">Comentários</p>
+    <ion-grid *ngFor="let coment of comentarios">
+        <ion-list class="ion-no-margin">
+            <ion-item>
+                <ion-row>
+                    <ion-col size="2" class="ion-align-self-start">
+                        <div class="wrap-avatar circle" (click)="abrirGaleria()">
+                            <img [src]="coment.usuarioFoto" />
+                        </div>
+                    </ion-col>
+                    <ion-col size="10" class="txt-dark  fw-400 pdl-20 fs-15 ion-text-justify">
+                        <strong>{{coment.usuario}}</strong> {{coment.comentario}}
+                    </ion-col>
+                </ion-row>
+            </ion-item>
 
-    </ion-list>
-  </ion-grid>
+        </ion-list>
+    </ion-grid>
 
 </ion-content>
 <ion-footer *ngIf="user">
-  <ion-toolbar>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="2" class="ion-align-self-start">
-          <div class="wrap-avatar circle">
-            <img [src]="user.photoURL" />
-          </div>
-        </ion-col>
-        <ion-col size="7">
-  <ion-input placeholder="Comente algo..." [(ngModel)]="comentario"></ion-input>
-</ion-col>
-<ion-col size="3" >
-  <ion-buttons end>
-    <ion-button icon-right (click)="criarComentario()">
-      <ion-icon icon-only name="send"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-</ion-col>
-</ion-row>
-</ion-grid>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="2" class="ion-align-self-start">
+                    <div class="wrap-avatar circle">
+                        <img [src]="user.photoURL" />
+                    </div>
+                </ion-col>
+                <ion-col size="7">
+                    <ion-input placeholder="Comente algo..." [(ngModel)]="comentario"></ion-input>
+                </ion-col>
+                <ion-col size="3">
+                    <ion-buttons end>
+                        <ion-button icon-right (click)="criarComentario()">
+                            <ion-icon icon-only name="send"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
 </ion-footer>
-

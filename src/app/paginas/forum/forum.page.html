@@ -1,14 +1,12 @@
 <ion-header>
     <ion-toolbar class="bg-header">
-        <ion-buttons slot="start">
-            <ion-title>Forum</ion-title>
-        </ion-buttons>
-
+        <ion-title style="text-align: center !important;">Fórum</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="ion-no-margin pdb-10" *ngFor="let item of perguntas">
+    <ion-card class="ion-no-margin pdb-10" *ngFor="let item of perguntas" style="border-radius: 25px;
+    margin: 15px;">
         <ion-grid>
             <span *ngIf="!item.isEdit; else elseBlock">
 
@@ -20,7 +18,7 @@
           </ion-col>
           <ion-col size="10">
             <div>
-              <h2 class="txt-dark  fw-600 fs-18" style="margin-top: 15px;">{{ item.usuario }}</h2>
+              <h2 class="txt-dark  fw-600 fs-18" style="margin-top: 15px; font-size: 14px !important;">{{ item.usuario }}</h2>
             </div>
           </ion-col>
           <!-- <ion-col size="4">
@@ -40,7 +38,7 @@
           </ion-col> -->
 
         </ion-row>
-<div [ngStyle]="{'background-color':item.categoria === 'categoria1' ? '#698eac' : '#7dd1f0' }">
+<div style="border-radius: 10px;" [ngStyle]="{'background-color':item.categoria === 'categoria1' ? '#698eac' : '#7dd1f0' }">
         <ion-row [routerLink]="['/comentarios-forum/' + item.id]"
           routerdirection="forward">
           <div>
@@ -56,13 +54,16 @@
                 <img [src]="coment.usuarioFoto" />
               </div>
             </ion-col>
-            <ion-col size="10" class="txt-dark  fw-400 pdl-10 fs-15 ion-text-justify" style="margin-top: 15px;">
+            <ion-col size="10" class="txt-dark  fw-400 pdl-10 fs-15 ion-text-justify" style="margin-top: 15px; font-size: 12px !important;">
               <strong>{{coment.usuario}}</strong> {{coment.comentario}}
             </ion-col>
           </ion-row>
         </div>
         </div>
 
+        <ion-button expand="full" fill="clear" style="font-size: 12px;" [routerLink]="['/comentarios-forum/' + item.id]">
+          Ver postagem
+        </ion-button>
 
         <!-- <ion-row  >
           <ion-col class="ion-align-self-start">

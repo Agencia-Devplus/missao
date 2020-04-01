@@ -26,15 +26,9 @@ export class HomePage implements OnInit {
     private iab: InAppBrowser) { }
 
   ngOnInit() {
-    this.fecharApp();
+    
   }
-fecharApp(){
-  this.platform.backButton.subscribe(async () => {
-    if (this.router.isActive('/home', true) && this.router.url === '/home') {
-      navigator['app'].exitApp();
-    }
-});
-}
+
   slidesDidLoad(slides: IonSlides) {
     slides.startAutoplay();
   }

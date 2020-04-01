@@ -10,6 +10,7 @@ import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Crop } from '@ionic-native/crop/ngx';
 import { CrudService } from 'src/app/core/services/crud.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -36,7 +37,8 @@ export class PerfilPage implements OnInit {
     private storage: AngularFireStorage,
     private overlay: OverlayService,
     private crop: Crop,
-    private crudService: CrudService
+    private crudService: CrudService,
+    public router: Router
   ) {
     this.auth.authState$.subscribe(user => (this.user = user));
   }
@@ -44,6 +46,7 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
     this.listarPerguntasUsuario();
   }
+  
   listarPerguntasUsuario() {
     this.crudService.read_PerguntasUsuario(firebase.auth().currentUser.uid).subscribe(data => {
 

@@ -3,7 +3,7 @@ import { CrudService } from 'src/app/core/services/crud.service';
 import * as firebase from 'firebase';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { PopoverController, NavController } from '@ionic/angular';
+import { PopoverController, NavController, Platform } from '@ionic/angular';
 import { ForumPopoverPage } from '../forum-popover/forum-popover.page';
 import { OverlayService } from 'src/app/core/services/overlay.service';
 import { Observable } from 'rxjs';
@@ -29,7 +29,7 @@ export class ForumPage implements OnInit {
   essa_maldita_id: any;
 
   constructor(private auth: AuthService, public router: Router, private navCtrl: NavController,
-    private crudService: CrudService, private popoverController: PopoverController,
+    private crudService: CrudService, private popoverController: PopoverController, private platform: Platform,
     public route: ActivatedRoute, private overlay: OverlayService) {
     this.auth.authState$.subscribe(user => (this.user = user));
 
@@ -37,7 +37,9 @@ export class ForumPage implements OnInit {
   }
 
   ngOnInit() {
+   
   }
+  
 
   /* CRUD POSTAGEM */
   listarPerguntas() {
@@ -59,7 +61,7 @@ export class ForumPage implements OnInit {
       this.array = this.perguntas;
       this.array.forEach(item => {
         console.log("ID da Pergunta: " + item.id)
-        this.listarComentarioPergunta(item.id)
+        this.listarComentariosPergunta(item.id)
       })
 
 
@@ -67,11 +69,11 @@ export class ForumPage implements OnInit {
     });
   } 
   /* Listar ultimo Comentário */
-  listarComentarioPergunta(id) {
+  listarComentariosPergunta(id) {
     console.log('Listar Comentários da Pergunta')
     console.log("ID da Pergunta para Pesquisar Comments: " + id);
     this.id_que_vem = id;
-    this.crudService.read_ComentariosPergunta(this.id_que_vem).subscribe(data => {
+    this.crudService.read_ComentariosForum(this.id_que_vem).subscribe(data => {
       this.comentarios_post = data.map(e => {
         return {
           id: e.payload.doc.id,
@@ -80,9 +82,11 @@ export class ForumPage implements OnInit {
           usuario: e.payload.doc.data()['usuario'],
           usuarioFoto: e.payload.doc.data()['usuarioFoto'],
           id_user_pergunta: e.payload.doc.data()['id_usuario'],
-          id_pergunta: e.payload.doc.data()['id_pergunta']
+          id_pergunta: e.payload.doc.data()['id_pergunta'],
         };
+        
       })
+      
 
 
       this.comentarios_post.forEach(item => {

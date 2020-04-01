@@ -22,6 +22,7 @@ export class ComentariosForumPage implements OnInit {
   pergunta: any;
   comentario: any;
   comentarios: any;
+  dataComentario: any;
 
   constructor(private crudService: CrudService,
     public loadingController: LoadingController,
@@ -81,11 +82,13 @@ export class ComentariosForumPage implements OnInit {
     record['usuarioFoto'] = this.user.photoURL;
     record['id_usuario'] = this.user.uid;
     record['id_pergunta'] = this.idpergunta;
+    record['dataComentario'] = new Date();
     this.crudService.create_NovoComentario(this.idpergunta, record).then(resp => {
       this.comentario = "";
       this.user.displayName;
       this.user.photoURL;
       this.idpergunta="";
+      this.dataComentario;
       this.presentLoading();
     })
       .catch(error => {
@@ -103,7 +106,8 @@ export class ComentariosForumPage implements OnInit {
           usuario: e.payload.doc.data()['usuario'],
           usuarioFoto: e.payload.doc.data()['usuarioFoto'],
           id_user_pergunta: e.payload.doc.data()['id_usuario'],
-          id_pergunta: e.payload.doc.data()['id_pergunta']
+          id_pergunta: e.payload.doc.data()['id_pergunta'],
+          dataComentario: e.payload.doc.data()['dataComentario']
         };
       })
       console.log(this.comentarios);

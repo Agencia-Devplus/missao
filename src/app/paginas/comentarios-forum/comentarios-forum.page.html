@@ -19,7 +19,7 @@
 
         <ion-row>
           <ion-col size="2" class="ion-align-self-start">
-            <div class="wrap-avatar circle" (click)="abrirGaleria()">
+            <div class="wrap-avatar circle">
               <img [src]="item.usuarioFoto" />
             </div>
           </ion-col>
@@ -99,14 +99,19 @@
   </ion-grid>
 
 </ion-content>
-<ion-footer>
+<ion-footer *ngIf="user">
   <ion-toolbar>
     <ion-grid>
       <ion-row>
-        <ion-col size="10">
+        <ion-col size="2" class="ion-align-self-start">
+          <div class="wrap-avatar circle">
+            <img [src]="user.photoURL" />
+          </div>
+        </ion-col>
+        <ion-col size="7">
   <ion-input placeholder="Comente algo..." [(ngModel)]="comentario"></ion-input>
 </ion-col>
-<ion-col size="2">
+<ion-col size="3" >
   <ion-buttons end>
     <ion-button icon-right (click)="criarComentario()">
       <ion-icon icon-only name="send"></ion-icon>

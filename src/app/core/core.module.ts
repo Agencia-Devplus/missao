@@ -16,6 +16,7 @@ import { File } from '@ionic-native/file/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Facebook } from '@ionic-native/facebook/ngx';
 
 @NgModule({
   declarations: [],
@@ -43,6 +44,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
     InAppBrowser,
     SocialSharing,
     GooglePlus,
+    Facebook,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
 })

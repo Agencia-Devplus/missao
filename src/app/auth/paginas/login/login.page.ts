@@ -9,6 +9,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import * as firebase from 'firebase/app';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,7 @@ export class LoginPage implements OnInit {
     private rotaAtiva: ActivatedRoute,
     private navCtrl: NavController,
     private google: GooglePlus,
+    private fb: Facebook,
     private router: Router,
     private platform: Platform,
     public loadingController: LoadingController,
@@ -79,6 +81,7 @@ export class LoginPage implements OnInit {
     !isSignIn ? this.formLogin.addControl('nome', this.nameControl) : this.formLogin.removeControl('nome');
   }
 
+  /* login email */
   async aoClicarEntrar(provider: AuthProvider): Promise<void> {
     const loading = await this.overlayService.loading();
     try {
@@ -97,14 +100,14 @@ export class LoginPage implements OnInit {
       loading.dismiss();
     }
   }
+  /* fim login email */
 
   /* Login Google */
   async presentLoading(loading) {
     await loading.present();
   }
 
-
-  async loginGoogle() {
+ async loginGoogle() {
     let params;
     if (this.platform.is('android')) {
       params = {
@@ -118,13 +121,13 @@ export class LoginPage implements OnInit {
     this.google.login(params)
       .then((response) => {
         const { idToken, accessToken } = response
-        this.onLoginSuccess(idToken, accessToken);
+        this.onLoginSuccessGoogle(idToken, accessToken);
       }).catch((error) => {
         console.log(error)
         alert('error:' + JSON.stringify(error))
       });
   }
-  onLoginSuccess(accessToken, accessSecret) {
+  onLoginSuccessGoogle(accessToken, accessSecret) {
     const credential = accessSecret ? firebase.auth.GoogleAuthProvider
         .credential(accessToken, accessSecret) : firebase.auth.GoogleAuthProvider
             .credential(accessToken);
@@ -135,9 +138,41 @@ export class LoginPage implements OnInit {
       })
 
   }
+  onLoginErrorGoogle(err) {
+    console.log(err);
+  }
+  /* fim login google */
+
+  /* login facebook */
+  async loginFacebook() {
+
+    this.fb.login(['email', "public_profile"])
+      .then((response: FacebookLoginResponse) => {
+        this.onLoginSuccessFacebook(response);
+        console.log(response.authResponse.accessToken);
+      }).catch((error) => {
+        console.log(error)
+        alert('error:' + error)
+      });
+  }
+  onLoginSuccessFacebook(res: FacebookLoginResponse) {
+    //const { token } = res;
+    const credential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+    this.fireAuth.auth.signInWithCredential(credential)
+      .then((response) => {
+        this.router.navigate(["/inicio/painel/home"]);
+        this.loading.dismiss();
+      })
+
+  }
   onLoginError(err) {
     console.log(err);
   }
+
+  /* fim login facebook */
+
+
+  
   
 
 }

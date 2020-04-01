@@ -95,7 +95,6 @@ export class ComentariosForumPage implements OnInit {
   listarComentariosPergunta(){
 
     this.crudService.read_ComentariosPergunta(this.idpergunta).subscribe(data => {
-
       this.comentarios = data.map(e => {
         return {
           id: e.payload.doc.id,

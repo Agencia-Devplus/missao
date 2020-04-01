@@ -39,7 +39,6 @@ export class ForumPage implements OnInit {
   ngOnInit() {
    
   }
-  
 
   /* CRUD POSTAGEM */
   listarPerguntas() {

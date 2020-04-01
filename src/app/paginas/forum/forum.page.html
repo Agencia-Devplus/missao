@@ -1,17 +1,13 @@
 <ion-header>
-  <ion-toolbar class="bg-header">
-    <ion-buttons slot="start">
-      <ion-title>Forum</ion-title>
-    </ion-buttons>
-
-  </ion-toolbar>
+    <ion-toolbar class="bg-header">
+        <ion-title style="text-align: center; color: rgb(23, 61, 133)">Fórum</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card class="ion-no-margin pdb-10" *ngFor="let item of perguntas">
-    <ion-grid>
-      <span *ngIf="!item.isEdit; else elseBlock">
-
+    <ion-card class="ion-no-margin pdb-10" *ngFor="let item of perguntas">
+        <ion-grid>
+            <span *ngIf="!item.isEdit; else elseBlock">
         <ion-row>
           <ion-col size="2" class="ion-align-self-start">
             <div class="wrap-avatar circle" (click)="abrirGaleria()">
@@ -48,8 +44,13 @@
           </div>
         </ion-row>
       </div>
+<<<<<<< HEAD
         <div *ngFor="let coment of comentarios; let i = index; let lst = last;" >
           <div  >
+=======
+        <div *ngFor="let coment of comments; let i = index; let lst = last;" >
+          <div *ngIf="coment.id_pergunta == item.id">
+>>>>>>> b55ce5fef638192b54cc71d18a489e0895fb2a8b
           <ion-row class="pdt2">
             <ion-col size="2" class="ion-align-self-start">
               <div class="wrap-avatar circle">
@@ -59,12 +60,12 @@
             <ion-col size="10" class="txt-dark  fw-400 pdl-10 fs-15 ion-text-justify" style="margin-top: 15px;">
               {{i+1}}<strong>{{coment.usuario}}</strong> {{coment.comentario}} <span *ngIf="lst">ultimo</span>
             </ion-col>
-          </ion-row>
-        </div>
-        </div>
+            </ion-row>
+            </div>
+            </div>
 
 
-        <!-- <ion-row  >
+            <!-- <ion-row  >
           <ion-col class="ion-align-self-start">
             <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
               <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
@@ -77,40 +78,40 @@
             </ion-button>
           </ion-col>
         </ion-row> -->
-      </span>
-    </ion-grid>
-    <ng-template #elseBlock>
+            </span>
+        </ion-grid>
+        <ng-template #elseBlock>
 
-      <ion-card-header>
-        <ion-card-title>
-          <ion-item class="txt-dark fs-15 pd-10 edi-pergunta">
-            <ion-textarea type="text" [(ngModel)]="item.editPergunta"></ion-textarea>
-          </ion-item>
-          <ion-grid>
-            <ion-row class="txt-dark fs-15 pd-10">
+            <ion-card-header>
+                <ion-card-title>
+                    <ion-item class="txt-dark fs-15 pd-10 edi-pergunta">
+                        <ion-textarea type="text" [(ngModel)]="item.editPergunta"></ion-textarea>
+                    </ion-item>
+                    <ion-grid>
+                        <ion-row class="txt-dark fs-15 pd-10">
 
-              <ion-col>
-                <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
-                  Cancelar
-                </ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
-                  Atualizar
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-title>
-      </ion-card-header>
+                            <ion-col>
+                                <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                                    Cancelar
+                                </ion-button>
+                            </ion-col>
+                            <ion-col>
+                                <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+                                    Atualizar
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-title>
+            </ion-card-header>
 
-    </ng-template>
-  </ion-card>
+        </ng-template>
+    </ion-card>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/inicio/painel/addpergunta']" routerdirection="forward">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/inicio/painel/addpergunta']" routerdirection="forward">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
 </ion-content>

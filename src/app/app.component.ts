@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren, QueryList } from '@angular/core';
 
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, IonRouterOutlet } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { OverlayService } from './core/services/overlay.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +13,18 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
+  lastTimeBackPress = 0;
+  timePeriodToExit = 2000;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private angularFireAuth: AngularFireAuth,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router,
+    private overlay: OverlayService
   ) {
     this.initializeApp();
   }
@@ -33,6 +41,26 @@ export class AppComponent {
         }
       });
       this.statusBar.styleDefault();
+    });
+  }
+
+  backButtonEvent() {
+    this.platform.backButton.subscribe(async () => {
+      this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
+        if (outlet && outlet.canGoBack()) {
+          outlet.pop();
+        } else if (this.router.url === '/inicio/painel/home') {
+          if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
+            navigator['app'].exitApp(); // work in ionic 4
+
+          } else {
+            this.overlay.toast({
+              message: "Pressione novamente para sair do aplicativo."
+            })
+            this.lastTimeBackPress = new Date().getTime();
+          }
+        }
+      });
     });
   }
 }

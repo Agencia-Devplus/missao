@@ -1,29 +1,35 @@
+<ion-header>
+    <ion-toolbar class="bg-header">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/inicio/painel/home"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 <ion-content>
 
-  <ion-card class="welcome-card">
-    <img src="../../../assets/img/saude-crianca-capa.jpg">
-    <ion-card-header>
-      <ion-card-title color="primary">SAÚDE DA CRIANÇA</ion-card-title>
-    </ion-card-header>
-  </ion-card>
+    <ion-card class="welcome-card">
+        <img src="../../../assets/img/saude-crianca-capa.jpg">
+        <ion-card-header>
+            <ion-card-title color="primary">SAÚDE DA CRIANÇA</ion-card-title>
+        </ion-card-header>
+    </ion-card>
 
-  <ion-item (click)="abrirUrl('https://saude.abril.com.br/alimentacao/o-perigo-da-obesidade-infantil/')">
-    <ion-thumbnail slot="start">
-      <img src="../../assets/img/saude-crianca-1.jpg">
-    </ion-thumbnail>
-    <ion-label color="primary">
-      O perigo da obesidade infantil
-    </ion-label>
-  </ion-item>
+    <ion-item (click)="abrirUrl('https://saude.abril.com.br/alimentacao/o-perigo-da-obesidade-infantil/')">
+        <ion-thumbnail slot="start">
+            <img src="../../assets/img/saude-crianca-1.jpg">
+        </ion-thumbnail>
+        <ion-label color="primary">
+            O perigo da obesidade infantil
+        </ion-label>
+    </ion-item>
 
-  <ion-item
-    (click)="abrirUrl('https://pebmed.com.br/uso-problematico-de-midias-interativas-voce-conhece-esta-entidade/')">
-    <ion-thumbnail slot="start">
-      <img src="../../assets/img/saude-crianca-2.jpg">
-    </ion-thumbnail>
-    <ion-label color="primary">
-      Uso Problemáticos de Mídios Interativas
-    </ion-label>
-  </ion-item>
+    <ion-item (click)="abrirUrl('https://pebmed.com.br/uso-problematico-de-midias-interativas-voce-conhece-esta-entidade/')">
+        <ion-thumbnail slot="start">
+            <img src="../../assets/img/saude-crianca-2.jpg">
+        </ion-thumbnail>
+        <ion-label color="primary">
+            Uso Problemáticos de Mídios Interativas
+        </ion-label>
+    </ion-item>
 
 </ion-content>

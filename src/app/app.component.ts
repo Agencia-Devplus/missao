@@ -27,6 +27,7 @@ export class AppComponent {
     private overlay: OverlayService
   ) {
     this.initializeApp();
+    this.backButtonEvent();
   }
 
   initializeApp() {
@@ -45,14 +46,32 @@ export class AppComponent {
   }
 
   backButtonEvent() {
-    this.platform.backButton.subscribe(async () => {
+
+    this.platform.backButton.subscribeWithPriority(0, () => {
+      console.log('this.router.url', this.router.url);
+      if (this.router.url === '/inicio/painel/home') {
+        if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
+          navigator['app'].exitApp();
+        } else {
+          this.overlay.toast({
+            message: "Pressione novamente para sair do aplicativo."
+          })
+          this.lastTimeBackPress = new Date().getTime();
+        }
+      } else if (this.router.url === '/inicio/painel/forum' ||
+        this.router.url === '/inicio/painel/perfil') {
+        this.navCtrl.navigateBack('/inicio/painel/home')
+      } else {
+        this.navCtrl.pop();
+      }
+    });
+    /*this.platform.backButton.subscribe(async () => {
       this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
         if (outlet && outlet.canGoBack()) {
           outlet.pop();
         } else if (this.router.url === '/inicio/painel/home') {
           if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
-            navigator['app'].exitApp(); // work in ionic 4
-
+            navigator['app'].exitApp();
           } else {
             this.overlay.toast({
               message: "Pressione novamente para sair do aplicativo."
@@ -61,6 +80,6 @@ export class AppComponent {
           }
         }
       });
-    });
+    });*/
   }
 }

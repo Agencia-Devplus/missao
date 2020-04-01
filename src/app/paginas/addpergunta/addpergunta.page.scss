@@ -1,17 +1,16 @@
-.bg-header{
-  --background: url('../../../assets/img/barra2.png') no-repeat center center / cover !important;
-}
 ion-grid {
-  padding-top: 35%;
+    padding-top: 35%;
 }
+
 ion-content {
-  --background: url("../../../assets/img/background2.png") no-repeat center center / cover !important;
+    --background: url("../../../assets/img/background2.png") no-repeat center center / cover !important;
 }
+
 .item {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  color: rgb(53, 50, 50) !important;
-  font-size: 15px !important;
-  font-weight: 500 !important;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    color: rgb(53, 50, 50) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
 }

@@ -49,7 +49,7 @@
         </ion-row>
       </div>
         <div *ngFor="let coment of comentarios; let i = index; let lst = last;" >
-          <div *ngIf="item.id == coment.id_pergunta"  >
+          <div  >
           <ion-row class="pdt2">
             <ion-col size="2" class="ion-align-self-start">
               <div class="wrap-avatar circle">
@@ -57,7 +57,7 @@
               </div>
             </ion-col>
             <ion-col size="10" class="txt-dark  fw-400 pdl-10 fs-15 ion-text-justify" style="margin-top: 15px;">
-              <strong>{{coment.usuario}}</strong> {{coment.comentario}} <span *ngIf="lst">ultimo</span>
+              {{i+1}}<strong>{{coment.usuario}}</strong> {{coment.comentario}} <span *ngIf="lst">ultimo</span>
             </ion-col>
           </ion-row>
         </div>

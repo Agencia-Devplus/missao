@@ -17,7 +17,7 @@ import { OverlayService } from 'src/app/core/services/overlay.service';
 export class ForumPage implements OnInit {
 
   user: firebase.User;
-  perguntas: any;
+  perguntas: any [];
   id_user_pergunta: any;
   comentarios: any;
 
@@ -27,7 +27,7 @@ export class ForumPage implements OnInit {
     this.auth.authState$.subscribe(user => (this.user = user));
 
     this.listarPerguntas();
-    //this.listarComentarioPergunta();    
+     
    }
 
   ngOnInit() {
@@ -35,8 +35,47 @@ export class ForumPage implements OnInit {
   }
 
   /* CRUD POSTAGEM */
-
   listarPerguntas() {
+    console.log("Listar as perguntas")
+    this.crudService.read_Perguntas().subscribe(data => {
+
+      this.perguntas = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          pergunta: e.payload.doc.data()['pergunta'],
+          categoria: e.payload.doc.data()['categoria'],
+          usuario: e.payload.doc.data()['usuario'],
+          usuarioFoto: e.payload.doc.data()['usuarioFoto'],
+          id_user_pergunta: e.payload.doc.data()['id_usuario']
+        };
+      })
+
+      this.perguntas.forEach(value => {
+        this.listarComentarioPergunta(value.id)
+      })
+
+    });
+  }
+  listarComentarioPergunta(id) {
+    console.log('Listar Comentários da Pergunta')
+
+    this.crudService.read_ComentariosPergunta(id).subscribe(data => {
+      this.comentarios = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          comentario: e.payload.doc.data()['comentario'],
+          usuario: e.payload.doc.data()['usuario'],
+          usuarioFoto: e.payload.doc.data()['usuarioFoto'],
+          id_user_pergunta: e.payload.doc.data()['id_usuario'],
+          id_pergunta: e.payload.doc.data()['id_pergunta']
+        };
+      })
+    });
+  }
+
+  /* listarPerguntas() {
     this.crudService.read_Perguntas().subscribe(data => {
 
       this.perguntas = data.map(e => {
@@ -52,13 +91,19 @@ export class ForumPage implements OnInit {
         };
       })
       console.log(this.perguntas);
+      console.log(this.perguntas.forEach(item => {
+        console.log(item.id)
+      }))
 
     });
-  }
+  } */
   /* Listar ultimo Comentário */
-  async listarComentarioPergunta(){
+  /* async listarComentarioPergunta(){
 
-   await this.crudService.read_ComentariosPergunta(this.idpergunta).subscribe(data => {
+    console.log(this.perguntas.forEach(item => {
+      console.log(item.id)
+    }))
+   await this.crudService.read_ComentariosPergunta(this.perguntas).subscribe(data => {
       
 
       this.comentarios = data.map(e => {
@@ -73,10 +118,10 @@ export class ForumPage implements OnInit {
         };
       })
       console.log(this.comentarios);
-      console.log(this.idpergunta)
+      
 
     });
-  }
+  } */
 
   listarComentarios(){
 
@@ -120,7 +165,7 @@ export class ForumPage implements OnInit {
     record.editCategoria = record.categoria;
   } */
 
-  async abrirMenu(ev: Event) {
+  /* async abrirMenu(ev: Event) {
     const popover = await this.popoverController.create({
       component: ForumPopoverPage,
       componentProps: {
@@ -131,7 +176,7 @@ export class ForumPage implements OnInit {
       event: ev
     });
     popover.present();
-  }
+  } */
   /* fim crud postagem */
 
   

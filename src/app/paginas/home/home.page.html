@@ -1,91 +1,79 @@
 <ion-header>
     <img src="../../assets/img/barra.png" />
-  </ion-header>
-  
-  <ion-content class="ion-padding">
-  
+</ion-header>
+
+<ion-content class="ion-padding">
+
     <ion-grid>
-      <ion-row>
-        <!-- <ion-col class="ion-align-self-start">
+        <ion-row>
+            <!-- <ion-col class="ion-align-self-start">
           <ion-img class="btn" src="assets/icon/login.png" style="width : 100% ; height : 100%" [routerLink]="['/login']"
             routerdirection="forward"></ion-img>
         </ion-col> -->
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/projeto-icone.png" style="width : 100% ; height : 100%"
-          [routerLink]="['/inicio/painel/projeto']" routerdirection="forward"></ion-img>
-        </ion-col>
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/parceiros.png" style="width : 100% ; height : 100%"
-            [routerLink]="['/inicio/painel/apoiadores']" routerdirection="forward"></ion-img>
-        </ion-col>
-        
             <ion-col class="ion-align-self-start">
-              <ion-img class="btn" src="assets/icon/compartilhar.png" style="width : 100% ; height : 100%"
-                (click)="whatsappShare()" routerdirection="forward"></ion-img>
+                <ion-img class="btn" src="assets/icon/projeto-icone.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/projeto']" routerdirection="forward"></ion-img>
             </ion-col>
             <ion-col class="ion-align-self-start">
-              <ion-img class="btn" src="assets/icon/instagram.png" style="width : 100% ; height : 100%"
-              (click)="abrirUrl('https://www.instagram.com/missaosaudemaraba/')" routerdirection="forward"></ion-img>
+                <ion-img class="btn" src="assets/icon/parceiros.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/apoiadores']" routerdirection="forward"></ion-img>
             </ion-col>
-        
-      </ion-row>
-    </ion-grid>
-  
-    <ion-grid>
-      <ion-row>
-                
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/videos-icone.png" style="width : 100% ; height : 100%"
-            [routerLink]="['/inicio/painel/video']" routerdirection="forward"></ion-img>
-        </ion-col>
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/nutricao.png" style="width : 100% ; height : 100%"
-            [routerLink]="['/inicio/painel/nutricao']" routerdirection="forward"></ion-img>
-        </ion-col>
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/saude-mental.png" style="width : 100% ; height : 100%"
-            [routerLink]="['/inicio/painel/saude-mental']" routerdirection="forward"></ion-img>
-        </ion-col>
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/saude-do-idoso.png" style="width : 100% ; height : 100%"
-            [routerLink]="['/inicio/painel/saude-idoso']" routerdirection="forward"></ion-img>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  
-    <ion-grid>
-      <ion-row>
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/saude-da-mulher.png" style="width : 100% ; height : 100%"
-            [routerLink]="['/inicio/painel/saude-mulher']" routerdirection="forward"></ion-img>
-        </ion-col>
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/saude-do-homem.png" style="width : 100% ; height : 100%"
-            [routerLink]="['/inicio/painel/saude-homem']" routerdirection="forward"></ion-img>
-        </ion-col>
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/saude-da-crianca.png" style="width : 100% ; height : 100%"
-            [routerLink]="['/inicio/painel/saude-crianca']" routerdirection="forward"></ion-img>
-        </ion-col>
-        <ion-col class="ion-align-self-start">
-          <ion-img class="btn" src="assets/icon/saude-do-adolescente.png" style="width : 100% ; height : 100%"
-            [routerLink]="['/inicio/painel/saude-adolescente']" routerdirection="forward"></ion-img>
-        </ion-col>
-      </ion-row>
+
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/compartilhar.png" style="width : 100% ; height : 100%" (click)="whatsappShare()" routerdirection="forward"></ion-img>
+            </ion-col>
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/instagram.png" style="width : 100% ; height : 100%" (click)="abrirUrl('https://www.instagram.com/missaosaudemaraba/')" routerdirection="forward"></ion-img>
+            </ion-col>
+
+        </ion-row>
     </ion-grid>
 
-  </ion-content>
-  <ion-footer class="pdb-25">
+    <ion-grid>
+        <ion-row>
+
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/videos-icone.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/video']" routerdirection="forward"></ion-img>
+            </ion-col>
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/nutricao.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/nutricao']" routerdirection="forward"></ion-img>
+            </ion-col>
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/saude-mental.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/saude-mental']" routerdirection="forward"></ion-img>
+            </ion-col>
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/saude-do-idoso.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/saude-idoso']" routerdirection="forward"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/saude-da-mulher.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/saude-mulher']" routerdirection="forward"></ion-img>
+            </ion-col>
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/saude-do-homem.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/saude-homem']" routerdirection="forward"></ion-img>
+            </ion-col>
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/saude-da-crianca.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/saude-crianca']" routerdirection="forward"></ion-img>
+            </ion-col>
+            <ion-col class="ion-align-self-start">
+                <ion-img class="btn" src="assets/icon/saude-do-adolescente.png" style="width : 100% ; height : 100%" [routerLink]="['/inicio/painel/saude-adolescente']" routerdirection="forward"></ion-img>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
+<ion-footer class="pdb-25">
     <ion-slides [options]="slideOptions" #slider>
-      <ion-slide>
-        <img src="../../../assets/banner/banner-biotest.png">
-      </ion-slide>
-      <ion-slide>
-        <img src="../../../assets/banner/lojao-das-clinicas.png">
-      </ion-slide>
-      <ion-slide>
-        <img src="../../../assets/banner/banner-cden.jpg">
-      </ion-slide>
+        <ion-slide>
+            <img src="../../../assets/banner/banner-biotest.png">
+        </ion-slide>
+        <ion-slide>
+            <img src="../../../assets/banner/lojao-das-clinicas.png">
+        </ion-slide>
+        <ion-slide>
+            <img src="../../../assets/banner/banner-cden.jpg">
+        </ion-slide>
     </ion-slides>
 
-  </ion-footer>
+</ion-footer>

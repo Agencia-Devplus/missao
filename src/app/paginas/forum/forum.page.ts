@@ -17,25 +17,21 @@ import { OverlayService } from 'src/app/core/services/overlay.service';
 export class ForumPage implements OnInit {
 
   user: firebase.User;
-  pergunta: any;
   perguntas: any;
-  postagemTexto: string;
   id_user_pergunta: any;
-  idpergunta: string;
   comentarios: any;
 
   constructor(private auth: AuthService, public router: Router, private navCtrl: NavController,
     private crudService: CrudService, private popoverController: PopoverController,
     public route: ActivatedRoute, private overlay: OverlayService) {
     this.auth.authState$.subscribe(user => (this.user = user));
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.idpergunta = params.get('id')
-    })
+
+    this.listarPerguntas();
+    //this.listarComentarioPergunta();    
    }
 
   ngOnInit() {
-    this.listarPerguntas();
-    this.listarComentariosPergunta();
+    
   }
 
   /* CRUD POSTAGEM */
@@ -60,9 +56,10 @@ export class ForumPage implements OnInit {
     });
   }
   /* Listar ultimo Comentário */
-  listarComentariosPergunta(){
+  async listarComentarioPergunta(){
 
-    this.crudService.read_Comentarios().subscribe(data => {
+   await this.crudService.read_ComentariosPergunta(this.idpergunta).subscribe(data => {
+      
 
       this.comentarios = data.map(e => {
         return {
@@ -76,12 +73,14 @@ export class ForumPage implements OnInit {
         };
       })
       console.log(this.comentarios);
+      console.log(this.idpergunta)
 
     });
   }
-  listarComentarioPergunta(){
 
-    this.crudService.read_ComentariosPergunta(this.perguntas.id).subscribe(data => {
+  listarComentarios(){
+
+    this.crudService.read_Comentarios().subscribe(data => {
 
       this.comentarios = data.map(e => {
         return {

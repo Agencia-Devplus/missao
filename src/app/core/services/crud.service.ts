@@ -54,6 +54,10 @@ export class CrudService {
   read_ComentariosPergunta(record_id) {
     return this.firestore.doc('Perguntas/' + record_id).collection('Comentarios', ref => ref.where('id_pergunta', '==', record_id)).snapshotChanges();
   }
+  read_ComentariosForum(record_id) {
+    return this.firestore.doc('Perguntas/' + record_id).collection('Comentarios').snapshotChanges();
+    
+  }
   /* read_ComentariosPergunta(record_id) {
     return this.firestore.collection('Comentarios', ref => ref.where('id_pergunta', '==', record_id)).snapshotChanges();
 

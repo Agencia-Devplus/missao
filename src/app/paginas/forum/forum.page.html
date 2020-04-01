@@ -8,7 +8,6 @@
     <ion-card class="ion-no-margin pdb-10" *ngFor="let item of perguntas">
         <ion-grid>
             <span *ngIf="!item.isEdit; else elseBlock">
-
         <ion-row>
           <ion-col size="2" class="ion-align-self-start">
             <div class="wrap-avatar circle" (click)="abrirGaleria()">
@@ -45,8 +44,8 @@
           </div>
         </ion-row>
       </div>
-        <div *ngFor="let coment of comentarios; let i = index; let lst = last;" >
-          <div *ngIf="item.id == coment.id_pergunta"  >
+        <div *ngFor="let coment of comments; let i = index; let lst = last;" >
+          <div *ngIf="coment.id_pergunta == item.id">
           <ion-row class="pdt2">
             <ion-col size="2" class="ion-align-self-start">
               <div class="wrap-avatar circle">

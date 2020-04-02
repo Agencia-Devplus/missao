@@ -39,11 +39,11 @@ export class ComentariosForumPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.listarComentariosPergunta();
-
     const loading = await this.overlay.loading();
+    loading.present();
     try {
       this.getPergunta();
+      this.listarComentariosPergunta();
     } catch (e) {
       this.overlay.toast({
         message: "Erro ao buscar os dados: " + e.message
@@ -52,26 +52,12 @@ export class ComentariosForumPage implements OnInit {
       loading.dismiss();
     }
   }
-
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Publicando',
-      duration: 2000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-
-    console.log('Loading dismissed!');
-  }
-
   getPergunta() {
     this.crudService.detail_Pergunta(this.idpergunta).subscribe(data => {
       this.pergunta = data.data();
       this.id_user_pergunta = data.get('id');
       //convertendo objeto em array
       this.pergunta = Array.of(this.pergunta);
-      console.log(this.pergunta);
     })
   }
 
@@ -83,16 +69,12 @@ export class ComentariosForumPage implements OnInit {
       let record = {};
       record['comentario'] = this.comentario;
       record['usuario'] = this.user.displayName;
-      record['usuarioFoto'] = this.user.photoURL;
+      //record['usuarioFoto'] = this.user.photoURL;
       record['id_usuario'] = this.user.uid;
       record['id_pergunta'] = this.idpergunta;
       record['dataComentario'] = new Date();
       await this.crudService.create_NovoComentario(this.idpergunta, record).then(resp => {
         this.comentario = "";
-        this.user.displayName;
-        this.user.photoURL;
-        this.idpergunta = "";
-        this.dataComentario;
         this.overlay.toast({
           message: 'Comentário enviado.'
         })
@@ -110,7 +92,6 @@ export class ComentariosForumPage implements OnInit {
 
 
   listarComentariosPergunta() {
-
     this.crudService.read_ComentariosPergunta(this.idpergunta).subscribe(data => {
       this.comentarios = data.map(e => {
         return {
@@ -124,8 +105,6 @@ export class ComentariosForumPage implements OnInit {
           dataComentario: e.payload.doc.data()['dataComentario']
         };
       })
-      console.log(this.comentarios);
-
     });
   }
 
@@ -136,11 +115,9 @@ export class ComentariosForumPage implements OnInit {
       message: 'Deseja realmente apagar sua pergunta??',
       buttons: [{
         text: 'Sim',
-        handler: async () => {
+        handler: () => {
           this.crudService.delete_Pergunta(rowID);
-          this.presentLoading();
           this.router.navigate(["/inicio/painel/forum"]);
-
         }
       },
         'Não'

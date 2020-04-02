@@ -44,6 +44,31 @@ export class CrudService {
     return this.firestore.doc('Perguntas/' + recordID).collection('Comentarios').add(record)
   }
 
+  update_FotoUserComentário(userID, novaURL) {
+    this.firestore.collection('Perguntas').get().toPromise().then(values => {
+      values.forEach(doc => {
+        const coments = this.firestore.collection('Perguntas').doc(doc.id);
+        coments.collection('Comentarios', ref => ref.where('id_usuario', '==', userID)).get().toPromise().then(values => {
+          values.forEach(doc => {
+            doc.ref.update({
+              usuarioFoto: novaURL
+            })
+          })
+        })
+      })
+    })
+  }
+
+  update_FotoUserPostagem(userID, novaURL) {
+    this.firestore.collection('Perguntas', ref => ref.where('id_usuario', '==', userID)).get().toPromise().then(values => {
+      values.forEach(doc => {
+        doc.ref.update({
+          usuarioFoto: novaURL
+        })
+      })
+    });
+  }
+
   read_Comentarios() {
     return this.firestore.collection('Comentarios').snapshotChanges();
   }
@@ -56,11 +81,11 @@ export class CrudService {
   }
   read_ComentariosForum(record_id) {
     return this.firestore.doc('Perguntas/' + record_id).collection('Comentarios', ref => ref.orderBy('dataComentario', 'desc').limit(1).where('id_pergunta', '==', record_id)).snapshotChanges();
-    
+
   }
   /* read_ComentariosForum(record_id) {
     return this.firestore.doc('Perguntas/' + record_id).collection('Comentarios', ref => ref.where('id_pergunta', '==', record_id).orderBy('dataComentario', 'desc').limit(1)).snapshotChanges();
-    
+
   } */
   /* read_ComentariosPergunta(record_id) {
     return this.firestore.collection('Comentarios', ref => ref.where('id_pergunta', '==', record_id)).snapshotChanges();

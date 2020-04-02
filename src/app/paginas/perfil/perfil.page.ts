@@ -23,6 +23,7 @@ export class PerfilPage implements OnInit {
   urlCroppedIMG: string;
   urlIMG: string;
   perguntas: any;
+  upload: number;
 
   configs = {
     isSignIn: true,
@@ -46,10 +47,9 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
     this.listarPerguntasUsuario();
   }
-  
+
   listarPerguntasUsuario() {
     this.crudService.read_PerguntasUsuario(firebase.auth().currentUser.uid).subscribe(data => {
-
       this.perguntas = data.map(e => {
         return {
           id: e.payload.doc.id,
@@ -61,8 +61,6 @@ export class PerfilPage implements OnInit {
           id_user_pergunta: e.payload.doc.data()['id_usuario']
         };
       })
-      console.log(this.perguntas);
-
     });
   }
   // Testes upload de imagens
@@ -112,7 +110,7 @@ export class PerfilPage implements OnInit {
   }
 
   cropImage(fileUrl) {
-    this.crop.crop(fileUrl, { quality: 50, targetWidth: 300, targetHeight: 300 })
+    this.crop.crop(fileUrl, { quality: 80, targetWidth: 300, targetHeight: 300 })
       .then(
         async newPath => {
           let file: string;
@@ -140,17 +138,29 @@ export class PerfilPage implements OnInit {
       );
   }
 
-  uploadPic(blob: Blob) {
-    const ref = this.storage.ref(this.user.uid + '/profile/avatar.jpg');
-    const task = ref.put(blob);
-
-    task.snapshotChanges()
-      .pipe(finalize(() => ref.getDownloadURL().subscribe(data => {
-        this.urlIMG = data;
-        this.user.updateProfile({
-          photoURL: this.urlIMG
+  async uploadPic(blob: Blob) {
+    let loading = await this.overlay.loading();
+    loading.present();
+    try {
+      const ref = this.storage.ref(this.user.uid + '/profile/avatar.jpg');
+      await ref.put(blob).then(snapshot => {
+        this.upload = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      }).then(async () => {
+        await ref.getDownloadURL().toPromise().then(url => {
+          this.user.updateProfile({
+            photoURL: url
+          })
+          //Alterar no banco
+          this.crudService.update_FotoUserComentário(this.user.uid, url);
+          this.crudService.update_FotoUserPostagem(this.user.uid, url)
         })
-      })))
-      .subscribe();
+      })
+    } catch (e) {
+      this.overlay.alert({
+        message: "Erro ao enviar a foto: " + e
+      })
+    } finally {
+      loading.dismiss();
+    }
   }
 }

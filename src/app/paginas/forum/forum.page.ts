@@ -5,9 +5,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PopoverController, NavController, Platform } from '@ionic/angular';
 import { OverlayService } from 'src/app/core/services/overlay.service';
-import { TestBed } from '@angular/core/testing';
-
-
 
 
 @Component({

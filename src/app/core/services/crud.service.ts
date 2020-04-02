@@ -44,6 +44,31 @@ export class CrudService {
     return this.firestore.doc('Perguntas/' + recordID).collection('Comentarios').add(record)
   }
 
+  update_FotoUserComentário(userID, novaURL) {
+    this.firestore.collection('Perguntas').get().toPromise().then(values => {
+      values.forEach(doc => {
+        const coments = this.firestore.collection('Perguntas').doc(doc.id);
+        coments.collection('Comentarios', ref => ref.where('id_usuario', '==', userID)).get().toPromise().then(values => {
+          values.forEach(doc => {
+            doc.ref.update({
+              usuarioFoto: novaURL
+            })
+          })
+        })
+      })
+    })
+  }
+
+  update_FotoUserPostagem(userID, novaURL) {
+    this.firestore.collection('Perguntas', ref => ref.where('id_usuario', '==', userID)).get().toPromise().then(values => {
+      values.forEach(doc => {
+        doc.ref.update({
+          usuarioFoto: novaURL
+        })
+      })
+    });
+  }
+
   read_Comentarios() {
     return this.firestore.collection('Comentarios').snapshotChanges();
   }

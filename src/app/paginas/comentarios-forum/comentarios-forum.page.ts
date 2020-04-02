@@ -69,7 +69,7 @@ export class ComentariosForumPage implements OnInit {
       let record = {};
       record['comentario'] = this.comentario;
       record['usuario'] = this.user.displayName;
-      record['usuarioFoto'] = this.user.photoURL;
+      //record['usuarioFoto'] = this.user.photoURL;
       record['id_usuario'] = this.user.uid;
       record['id_pergunta'] = this.idpergunta;
       record['dataComentario'] = new Date();

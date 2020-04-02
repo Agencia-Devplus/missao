@@ -56,11 +56,11 @@ export class CrudService {
   }
   read_ComentariosForum(record_id) {
     return this.firestore.doc('Perguntas/' + record_id).collection('Comentarios', ref => ref.orderBy('dataComentario', 'desc').limit(1).where('id_pergunta', '==', record_id)).snapshotChanges();
-    
+
   }
   /* read_ComentariosForum(record_id) {
     return this.firestore.doc('Perguntas/' + record_id).collection('Comentarios', ref => ref.where('id_pergunta', '==', record_id).orderBy('dataComentario', 'desc').limit(1)).snapshotChanges();
-    
+
   } */
   /* read_ComentariosPergunta(record_id) {
     return this.firestore.collection('Comentarios', ref => ref.where('id_pergunta', '==', record_id)).snapshotChanges();

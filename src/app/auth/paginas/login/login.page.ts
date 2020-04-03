@@ -24,6 +24,10 @@ export class LoginPage implements OnInit {
     acao: 'Entrar',
     mudarAcao: 'Criar Conta'
   };
+  isForgotPassword: boolean;
+  responseMessage: string = '';
+  responseMessageType: string = '';
+  emailInput: string;
 
   private nameControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
@@ -39,16 +43,28 @@ export class LoginPage implements OnInit {
     private router: Router,
     private platform: Platform,
     public loadingController: LoadingController,
-    private fireAuth: AngularFireAuth
-  ) { }
+    private fireAuth: AngularFireAuth,
+    private overlay: OverlayService
+  ) {
+    this.isForgotPassword = false;
+  }
 
   ngOnInit(): void {
     this.criarFormulario();
     this.carregar();
-    
+
 
   }
-  async carregar(){
+  showMessage(type, msg) {
+    this.responseMessageType = type;
+    this.responseMessage = msg;
+    setTimeout(() => {
+      this.responseMessage = "";
+    }, 2000);
+  }
+
+
+  async carregar() {
     this.loading = await this.loadingController.create({
       message: 'Connecting ...'
     });
@@ -80,6 +96,29 @@ export class LoginPage implements OnInit {
     this.configs.mudarAcao = isSignIn ? 'Criar Conta' : 'Já tenho uma Conta';
     !isSignIn ? this.formLogin.addControl('nome', this.nameControl) : this.formLogin.removeControl('nome');
   }
+  async forgotPassword() {
+    await this.overlay.alert({
+      message: 'Enviamos um link de redefinição de senha para seu e-mail',
+      buttons: [{
+        text: 'Ok',
+        handler: () => {
+          this.authService.sendPasswordResetEmail(this.emailInput);
+          this.isForgotPassword = false;
+        }
+      }
+      ]
+    })
+  }
+  /* forgotPassword() {
+    this.authService.sendPasswordResetEmail(this.emailInput)
+      .then(res => {
+        console.log(res);
+        this.isForgotPassword = false;
+        this.showMessage("successo", "Por favor verifique sua caixa de e-mail");
+      }, err => {
+        this.showMessage("danger", err.message);
+      });
+  } */
 
   /* login email */
   async aoClicarEntrar(provider: AuthProvider): Promise<void> {
@@ -107,7 +146,7 @@ export class LoginPage implements OnInit {
     await loading.present();
   }
 
- async loginGoogle() {
+  async loginGoogle() {
     let params;
     if (this.platform.is('android')) {
       params = {
@@ -129,8 +168,8 @@ export class LoginPage implements OnInit {
   }
   onLoginSuccessGoogle(accessToken, accessSecret) {
     const credential = accessSecret ? firebase.auth.GoogleAuthProvider
-        .credential(accessToken, accessSecret) : firebase.auth.GoogleAuthProvider
-            .credential(accessToken);
+      .credential(accessToken, accessSecret) : firebase.auth.GoogleAuthProvider
+        .credential(accessToken);
     this.fireAuth.auth.signInWithCredential(credential)
       .then((response) => {
         this.router.navigate(["/inicio/painel/home"]);
@@ -172,7 +211,7 @@ export class LoginPage implements OnInit {
   /* fim login facebook */
 
 
-  
-  
+
+
 
 }

@@ -1,7 +1,7 @@
 <ion-content>
     <div class="prattika-login-bg">
         <ion-grid fixed="true">
-            <ion-row>
+            <ion-row class="pdt-150">
                 <ion-col>
                     <div class="brand">
                         <img src="../../../../assets/img/logo-missao-saude.png">
@@ -12,7 +12,7 @@
             <ion-row>
                 <ion-col>
                     <form [formGroup]="formLogin" (submit)="aoClicarEntrar(authProviders.Email)">
-                        <ng-container *ngIf="!configs.isSignIn">
+                        <ng-container *ngIf="!configs.isSignIn && !isForgotPassword">
                             <ion-item class="item">
                                 <ion-icon name="person" slot="start"></ion-icon>
                                 <ion-input type="text" placeholder="Nome" formControlName="nome"></ion-input>
@@ -25,7 +25,7 @@
                             </ion-item>
                         </ng-container>
 
-                        <ion-item class="item">
+                        <ion-item class="item" *ngIf="!isForgotPassword">
                             <ion-icon name="mail" slot="start"></ion-icon>
                             <ion-input type="mail" placeholder="E-mail" formControlName="email" inputmode="email"
                                 autofocus="true">
@@ -38,7 +38,7 @@
                             </ion-note>
                         </ion-item>
 
-                        <ion-item class="item">
+                        <ion-item class="item" *ngIf="!isForgotPassword">
                             <ion-icon name="lock" slot="start"></ion-icon>
                             <ion-input type="password" placeholder="Senha" formControlName="password"></ion-input>
                             <ion-note slot="end" color="danger" *ngIf="password.dirty && password.hasError('required')">
@@ -51,17 +51,37 @@
                         </ion-item>
 
                         <div style="margin-top: 10px;">
-                            <ion-button type="submit" expand="block" [disabled]="formLogin.invalid">
+                            <ion-button type="submit" expand="block" [disabled]="formLogin.invalid"
+                                *ngIf="!isForgotPassword">
                                 {{configs.acao}}
                             </ion-button>
-                            <ion-button expand="full" fill="clear" (click)="mudarAuthAcao()">
+                            <ion-button expand="full" fill="clear" (click)="mudarAuthAcao()" *ngIf="!isForgotPassword">
                                 {{configs.mudarAcao}}
+                            </ion-button>
+                            <ion-button expand="full" fill="clear" *ngIf="!isForgotPassword"
+                                (click)="this.isForgotPassword = true;">
+                                Esqueceu sua senha?
                             </ion-button>
                         </div>
                     </form>
                 </ion-col>
             </ion-row>
-            <ion-row>
+            <div *ngIf="isForgotPassword">
+                <ion-item class="item">
+                    <ion-icon name="mail" slot="start"></ion-icon>
+                    <ion-input type="mail" class="form-control" placeholder="Informe seu e-mail" id="email"
+                        [(ngModel)]="emailInput" inputmode="email" autofocus="true">
+                    </ion-input>
+                </ion-item>
+                <ion-button type="submit" expand="block" [disabled]="!emailInput" type="submit" class="btn btn-primary"
+                    (click)="forgotPassword()">
+                    Resetar
+                    Senha</ion-button>
+                <ion-button expand="full" fill="clear" (click)="this.isForgotPassword=false;">Cancelar</ion-button>
+
+            </div>
+
+            <ion-row *ngIf="!isForgotPassword">
                 <ion-col class="ion-text-center">
                     <div>
                         <hr />
@@ -79,6 +99,7 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
+
     </div>
 
 </ion-content>

@@ -21,7 +21,9 @@
 
           <!-- Foto do Perfil -->
           <div class="avt-image circle" (click)="abrirGaleria()">
-              <img [src]="user.photoURL" />
+            <ion-icon class="iconSize" *ngIf="user.photoURL == null"  name="person-add"></ion-icon>
+              <img  *ngIf="user.photoURL != null" [src]="user.photoURL" />
+            
           </div>
           <!-- Fim Foto do Perfil -->
 

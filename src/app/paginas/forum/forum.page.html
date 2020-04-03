@@ -22,7 +22,7 @@
           </ion-col>
         </ion-row>
 
-        <div [ngStyle]="{'background-color':item.categoria === 'categoria1' ? '#698eac' : '#7dd1f0' }">
+        <div [ngStyle]="{'background-color':item.categoria === 'nutricao' ? '#698eac' : '#7dd1f0' }">
           <ion-row [routerLink]="['/comentarios-forum/' + item.id]" routerdirection="forward">
             <div>
               <p class="txt-light fs-17 pd-25 ion-text-justify">{{item.pergunta}}</p>

@@ -4,11 +4,13 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 import { CompartilhadoModule } from 'src/app/compartilhado/compartilhado.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CompartilhadoModule,    
-    LoginPageRoutingModule
+    LoginPageRoutingModule,
+    FormsModule
   ],
   declarations: [LoginPage]
 })

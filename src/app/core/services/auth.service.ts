@@ -32,10 +32,13 @@ export class AuthService {
   logout(): Promise<void> {
     return this.angularFireAuth.auth.signOut();
   }
+  sendPasswordResetEmail(passwordResetEmail: string){
+    return this.angularFireAuth.auth.sendPasswordResetEmail(passwordResetEmail);
+  }
 
   private entrarComEmaileSenha({ email, password }: User): Promise<auth.UserCredential> {
     return this.angularFireAuth.auth.signInWithEmailAndPassword(email, password);
-    
+
   }
 
   private criarContaComEmail({ email, password, nome }: User): Promise<auth.UserCredential> {
@@ -44,4 +47,5 @@ export class AuthService {
         credenciais.user.updateProfile({ displayName: nome, photoURL: null }).then(() => credenciais)
     )
   }
+
 }

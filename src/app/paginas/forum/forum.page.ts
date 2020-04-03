@@ -35,6 +35,7 @@ export class ForumPage {
     this.comments = [];
     this.listarPerguntas();
   }
+  
 
   /* CRUD POSTAGEM */
   async listarPerguntas() {

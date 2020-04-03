@@ -30,7 +30,8 @@ export class CrudService {
   }
 
   delete_Pergunta(record_id) {
-    this.firestore.doc('Perguntas/' + record_id).delete();
+    //this.firestore.doc('Perguntas/' + record_id).delete();
+    this.firestore.collection('Perguntas').doc(record_id).delete();
   }
 
   detail_Pergunta(recordID) {

@@ -20,7 +20,7 @@ export class ComentariosForumPage implements OnInit {
   id_user_pergunta: any;
   id_pergunta: any;
   pergunta: any;
-  comentario: any;
+  comentario = "";
   comentarios: any;
   dataComentario: any;
 
@@ -64,28 +64,34 @@ export class ComentariosForumPage implements OnInit {
   async criarComentario() {
     let loading = await this.overlay.loading();
     loading.present();
-    try {
-
-      let record = {};
-      record['comentario'] = this.comentario;
-      record['usuario'] = this.user.displayName;
-      //record['usuarioFoto'] = this.user.photoURL;
-      record['id_usuario'] = this.user.uid;
-      record['id_pergunta'] = this.idpergunta;
-      record['dataComentario'] = new Date();
-      await this.crudService.create_NovoComentario(this.idpergunta, record).then(resp => {
-        this.comentario = "";
-        this.overlay.toast({
-          message: 'Comentário enviado.'
-        })
-      })
-
-    } catch (e) {
-      this.overlay.alert({
-        message: 'Erro: ' + e
-      })
-    } finally {
+    if (this.comentario == "") {
       loading.dismiss();
+      this.overlay.toast({
+        message: "Escreva uma mensagem!"
+      })
+    } else {
+      try {
+        let record = {};
+        record['comentario'] = this.comentario;
+        record['usuario'] = this.user.displayName;
+        record['usuarioFoto'] = this.user.photoURL;
+        record['id_usuario'] = this.user.uid;
+        record['id_pergunta'] = this.idpergunta;
+        record['dataComentario'] = new Date();
+        await this.crudService.create_NovoComentario(this.idpergunta, record).then(resp => {
+          this.comentario = "";
+          this.overlay.toast({
+            message: 'Comentário enviado.'
+          })
+        })
+
+      } catch (e) {
+        this.overlay.alert({
+          message: 'Erro: ' + e
+        })
+      } finally {
+        loading.dismiss();
+      }
     }
 
   }

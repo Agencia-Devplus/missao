@@ -48,17 +48,29 @@
                   <img [src]="user.photoURL" />
                 </div>
               </ion-col>
-              <ion-col size="10">
+              <!-- <ion-col size="10">
                 <ion-input [routerLink]="['/comentarios-forum/' + item.id]" routerdirection="forward"
                   placeholder="Faça um comentário..."></ion-input>
-              </ion-col>
+              </ion-col> -->
             </ion-row>
           </div>
         </div>
+        <div [routerLink]="['/comentarios-forum/' + item.id]">
 
-        <ion-button expand="full" fill="clear" style="font-size: 12px;" [routerLink]="['/comentarios-forum/' + item.id]">
+        <!-- <ion-button expand="full" fill="clear" style="font-size: 12px;" >
           Ver postagem
-        </ion-button>
+        </ion-button> -->
+        <ion-row>
+          <ion-col size="1" class="ion-align-self-start pdt-15">
+              <div class="wrap-avatar circle">
+                  <img [src]="user.photoURL" />
+              </div>
+          </ion-col>
+          <ion-col size="11">
+              <ion-input placeholder="Faça um comentário..."></ion-input>
+          </ion-col>
+        </ion-row>
+      </div>
       </span>
         </ion-grid>
 

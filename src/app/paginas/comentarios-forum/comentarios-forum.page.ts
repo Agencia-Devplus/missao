@@ -136,6 +136,13 @@ export class ComentariosForumPage implements OnInit {
     record.editPergunta = record.pergunta;
     record.editCategoria = record.categoria;
   }
+  UpdateRecord(recordRow) {
+    let record = {};
+    record['pergunta'] = recordRow.pergunta;
+    record['categoria'] = recordRow.categoria;
+    this.crudService.update_Pergunta(recordRow.id, record);
+    recordRow.isEdit = false;
+  }
 
   async abrirMenu(ev: Event) {
     const popover = await this.popoverController.create({

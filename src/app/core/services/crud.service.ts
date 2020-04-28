@@ -18,7 +18,7 @@ export class CrudService {
   }
 
   read_Perguntas() {
-    return this.firestore.collection('Perguntas').snapshotChanges();
+    return this.firestore.collection('Perguntas', ref => ref.orderBy('dataPergunta', 'desc')).snapshotChanges();
   }
 
   read_PerguntasUsuario(userID) {

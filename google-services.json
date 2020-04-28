@@ -1,0 +1,57 @@
+{
+  "project_info": {
+    "project_number": "934842231492",
+    "firebase_url": "https://missao-saude-76ab6.firebaseio.com",
+    "project_id": "missao-saude-76ab6",
+    "storage_bucket": "missao-saude-76ab6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934842231492:android:3b37f673d2eefbef",
+        "android_client_info": {
+          "package_name": "com.devplus.missaosaude"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934842231492-ggs1stfdfdscis7v6luobrp7g7fkdqme.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devplus.missaosaude",
+            "certificate_hash": "ca3e45cbfa9dfd927a74618e65bdf25f15477d4b"
+          }
+        },
+        {
+          "client_id": "934842231492-ckgguu5rb8gr231sqph87frufcirkc9p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devplus.missaosaude",
+            "certificate_hash": "246559b9961972c3d5c3d3ebecf216510f534ff3"
+          }
+        },
+        {
+          "client_id": "934842231492-nq83lhgf1c7dlgbdn0r83leemtivt6qr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn1a9rOdQ3iFgpu0MV8TE5GD02LJunnn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934842231492-nq83lhgf1c7dlgbdn0r83leemtivt6qr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-1047006946825809~2454137362"
+    }
+  ],
+  "configuration_version": "1"
+}

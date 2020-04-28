@@ -1,11 +1,12 @@
 import { Component, ViewChildren, QueryList } from '@angular/core';
 
-import { Platform, NavController, IonRouterOutlet } from '@ionic/angular';
+import { Platform, NavController, IonRouterOutlet} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { OverlayService } from './core/services/overlay.service';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,8 @@ export class AppComponent {
   lastTimeBackPress = 0;
   timePeriodToExit = 2000;
 
+  pushes: any = [];
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -24,10 +27,12 @@ export class AppComponent {
     private angularFireAuth: AngularFireAuth,
     private navCtrl: NavController,
     private router: Router,
-    private overlay: OverlayService
+    private overlay: OverlayService,
+    private fcm: FCM,
   ) {
     this.initializeApp();
     this.backButtonEvent();
+    this.notificacaoPush();
   }
 
   initializeApp() {
@@ -42,6 +47,28 @@ export class AppComponent {
         }
       });
       this.statusBar.styleDefault();
+    });    
+  }
+
+  notificacaoPush(){
+    /* Notificação Push */
+    this.fcm.getToken().then(token => {
+      console.log(token);
+    });
+    //Receber notificação push
+    this.fcm.onNotification().subscribe(data => {
+      console.log(data);
+      if (data.wasTapped) {
+        console.log('Received in background');
+       //this.router.navigate([data.landing_page, data.price]);
+      } else {
+        console.log('Received in foreground');
+        //this.router.navigate([data.landing_page, data.price]);
+      }
+    });
+    //atualizar FCM Token
+    this.fcm.onTokenRefresh().subscribe(token => {
+      console.log(token);
     });
   }
 

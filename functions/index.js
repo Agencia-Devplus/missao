@@ -5,23 +5,26 @@ const admin = require ('firebase-admin');
 admin.initializeApp();
 
 exports.pushes = functions.firestore
-    .document('Perguntas/{token}/Comentarios/{id_pergunta}')
+    .document('Perguntas/{perguntaUid}/Comentarios/{id}')
     .onCreate((snap, context) => {
         const document = snap.data();
         console.log('document is', document);
-
-        var userId = context.params.token;
+        //var registrationToken = context.params.token
+        const perguntaUid = context.params.id_pergunta;
+        var tokenRef = admin.firestore().collection('Perguntas/').
+       //var registrationToken = tokenRef.child('token');
+        console.log('token ref',tokenRef);
         var message = {
             data:{
                 title: document.usuario,
                 body: document.comentario,
-                sender: document.id_pergunta
+                sender: document.id_usuario
             },
-            token: userId
+            token: registrationToken
         }
 
         admin.messaging().send(message)
-        .then((reponse) => {
+        .then((response) => {
             console.log('Mensagem enviado com sucesso', response)
         }).catch((error) => {
             console.log('Error ao enviar mensagem', error)

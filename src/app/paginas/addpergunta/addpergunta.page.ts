@@ -6,6 +6,7 @@ import { CrudService } from 'src/app/core/services/crud.service';
 import * as firebase from 'firebase';
 import { LoadingController, NavController } from '@ionic/angular';
 import { OverlayService } from 'src/app/core/services/overlay.service';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-addpergunta',
@@ -20,10 +21,16 @@ export class AddperguntaPage {
   pergunta: string;
   categoria: string;
   dataPergunta: any;
+  tokenUserPergunta: any;
 
   constructor(private auth: AuthService, public navCtrl: NavController,
-    private crudService: CrudService, public overlay: OverlayService) {
+    private crudService: CrudService, public overlay: OverlayService,
+    private fcm: FCM) {
     this.auth.authState$.subscribe(user => (this.user = user));
+
+    this.fcm.getToken().then(token => {
+      this.tokenUserPergunta = token;
+    });
   }
 
   async criarPergunta() {
@@ -38,6 +45,7 @@ export class AddperguntaPage {
       record['usuarioFoto'] = this.user.photoURL;
       record['id_usuario'] = this.user.uid;
       record['dataPergunta'] = new Date();
+      record['token'] = this.tokenUserPergunta;
       this.crudService.create_NovaPergunta(record).then(resp => {
         this.navCtrl.back();
       })

@@ -53,9 +53,12 @@ export class ForumPage {
             categoria: e.payload.doc.data()['categoria'],
             usuario: e.payload.doc.data()['usuario'],
             usuarioFoto: e.payload.doc.data()['usuarioFoto'],
-            id_user_pergunta: e.payload.doc.data()['id_usuario']
+            id_user_pergunta: e.payload.doc.data()['id_usuario'],
+            token: e.payload.doc.data()['token']
+            
           };
         });
+        console.log(this.perguntas);
         this.array = this.perguntas;
         this.array.forEach(item => {
           this.listarComentariosPergunta(item.id);
@@ -68,6 +71,7 @@ export class ForumPage {
     } finally {
       loading.dismiss();
     }
+    
   }
 
   /* Listar ultimo Comentário */

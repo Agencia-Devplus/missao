@@ -11,7 +11,8 @@ exports.pushes = functions.firestore
         console.log('document is', document);
         //var registrationToken = context.params.token
         const perguntaUid = context.params.id_pergunta;
-        var tokenRef = admin.firestore().collection('Perguntas/').
+        console.log(perguntaUid);
+        var tokenRef = admin.firestore().collection('Perguntas').doc('uid')
        //var registrationToken = tokenRef.child('token');
         console.log('token ref',tokenRef);
         var message = {

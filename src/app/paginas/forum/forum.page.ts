@@ -58,7 +58,6 @@ export class ForumPage {
             
           };
         });
-        console.log(this.perguntas);
         this.array = this.perguntas;
         this.array.forEach(item => {
           this.listarComentariosPergunta(item.id);

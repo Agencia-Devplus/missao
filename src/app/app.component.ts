@@ -60,9 +60,11 @@ export class AppComponent {
       console.log(data);
       if (data.wasTapped) {
         console.log('Received in background');
+        //this.navCtrl.navigateForward('/inicio/painel/comentarios-forum/:id')
        //this.router.navigate([data.landing_page, data.price]);
       } else {
         console.log('Received in foreground');
+        //this.navCtrl.navigateForward('/inicio/painel/comentarios-forum/:id')
         //this.router.navigate([data.landing_page, data.price]);
       }
     });

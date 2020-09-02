@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar class="bg-header">
+    <ion-title style="text-align: center !important;">Notícias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-no-margin pdb-10" *ngFor="let item of noticias" style="border-radius: 25px;
+    margin: 15px;">
+    <ion-grid>
+      <span *ngIf="!item.isEdit; else elseBlock">
+        <ion-row class="pdb-5">
+          <ion-col size="2" class="ion-align-self-start">
+            <div class="wrap-avatar circle">
+              <img [src]="item.usuarioFoto" />
+            </div>
+          </ion-col>
+          <ion-col size="10">
+            <div>
+              <h2 class="txt-dark  fw-600 fs-18" style="margin-top: 8px; font-size: 14px !important;">{{ item.usuario }}
+              </h2>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <div>
+          <ion-row>
+            <div >
+              <img [src]="item.imgNoticia">
+              <!-- <video [src]="item.imgNoticia" autoplay></video> -->
+            </div>
+            <p class="txt-dark fs-13 ion-text-justify" [routerLink]="['/comentarios-forum/' + item.id]"
+              routerdirection="forward"> {{item.legenda}} </p>
+          </ion-row>
+        </div>
+
+        <div [routerLink]="['/comentarios-forum/' + item.id]">
+          <!-- <ion-button expand="full" fill="clear" style="font-size: 12px;" >
+          Ver postagem
+        </ion-button> -->
+          <ion-row>
+            <ion-col size="1" class="ion-align-self-start pdt-15">
+              <div class="wrap-avatar circle">
+                <img [src]="user.photoURL" />
+              </div>
+            </ion-col>
+            <ion-col size="11">
+              <ion-input placeholder="Faça um comentário..."></ion-input>
+            </ion-col>
+          </ion-row>
+        </div>
+      </span>
+    </ion-grid>
+
+    <ng-template #elseBlock>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-item class="txt-dark fs-15 pd-10 edi-pergunta">
+            <ion-textarea type="text" [(ngModel)]="item.editPergunta"></ion-textarea>
+          </ion-item>
+          <ion-grid>
+            <ion-row class="txt-dark fs-15 pd-10">
+              <ion-col>
+                <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                  Cancelar
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+                  Atualizar
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+    </ng-template>
+  </ion-card>
+
+  <ion-fab *ngIf="isAdmin" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

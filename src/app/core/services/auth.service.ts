@@ -48,4 +48,13 @@ export class AuthService {
     )
   }
 
+  registerUser(value) {
+    return new Promise<any>((resolve, reject) => {
+      this.angularFireAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
+        .then(
+          res => resolve(res),
+          err => reject(err))
+    })
+  }
+
 }

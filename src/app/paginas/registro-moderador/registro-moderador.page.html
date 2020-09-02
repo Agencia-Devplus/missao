@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar class="bg-header">
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="/inicio/painel/home"></ion-back-button>
+    </ion-buttons>
+</ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="form" [formGroup]="formRegistro" (ngSubmit)="tryRegister(formRegistro.value)">
+
+    <!--  -->
+    <ion-item class="item">
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input type="text" formControlName="nome"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.nome">
+        <div class="error-message"
+          *ngIf="formRegistro.get('nome').hasError(validation.type) && (formRegistro.get('nome').dirty || formRegistro.get('nome').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.unidade">
+        <div class="error-message"
+          *ngIf="formRegistro.get('unidade').hasError(validation.type) && (formRegistro.get('unidade').dirty || formRegistro.get('unidade').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Usuário será administrador?</ion-label>
+      <ion-select multiple="false" cancelText="Cancelar" okText="Confirmar" formControlName="isAdmin">
+        <ion-select-option [value]="true">Sim</ion-select-option>
+        <ion-select-option [value]="false">Não</ion-select-option>
+      </ion-select>
+
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.isAdmin">
+        <div class="error-message"
+          *ngIf="formRegistro.get('isAdmin').hasError(validation.type) && (formRegistro.get('isAdmin').dirty || formRegistro.get('isAdmin').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <!--  -->
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.email">
+        <div class="error-message"
+          *ngIf="formRegistro.get('email').hasError(validation.type) && (formRegistro.get('email').dirty || formRegistro.get('email').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password" class="form-controll" required></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div class="error-message"
+          *ngIf="formRegistro.get('password').hasError(validation.type) && (formRegistro.get('password').dirty || formRegistro.get('password').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-row>
+      <ion-col class="ion-text-center">
+    <ion-button color="danger" class="submit-btn" type="submit" [disabled]="!formRegistro.valid">Cadastrar</ion-button>
+  </ion-col>
+  </ion-row>
+    <label class="error-message">{{errorMessage}}</label>
+    <label class="success-message">{{successMessage}}</label>
+  </form>
+  
+</ion-content>

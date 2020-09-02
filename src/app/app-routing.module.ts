@@ -92,7 +92,16 @@ const routes: Routes = [
     path: 'comentarios-forum/:id',
     loadChildren: () => import('./paginas/comentarios-forum/comentarios-forum.module').then(m => m.ComentariosForumPageModule),
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'add-noticia',
+    loadChildren: () => import('./compartilhado/modals/add-noticia/add-noticia.module').then( m => m.AddNoticiaPageModule)
+  },
+  {
+    path: 'registro-moderador',
+    loadChildren: () => import('./paginas/registro-moderador/registro-moderador.module').then( m => m.RegistroModeradorPageModule)
   }
+
 ];
 
 @NgModule({

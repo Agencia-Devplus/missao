@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { OverlayService } from 'src/app/core/services/overlay.service';
 import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Crop } from '@ionic-native/crop/ngx';
 import { CrudService } from 'src/app/core/services/crud.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -39,9 +41,23 @@ export class PerfilPage implements OnInit {
     private overlay: OverlayService,
     private crop: Crop,
     private crudService: CrudService,
-    public router: Router
+    public router: Router,
+    private rotaAtiva: ActivatedRoute,
+    public navCtrl: NavController
   ) {
-    this.auth.authState$.subscribe(user => (this.user = user));
+     this.auth.authState$.subscribe(user => (this.user = user));
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .doc(`/users/${user.uid}`)
+          .get()
+          .then(userProfileSnapshot => {
+            this.isAdmin = userProfileSnapshot.data().isAdmin;
+          });
+      }
+    });
   }
 
   ngOnInit() {
@@ -162,5 +178,9 @@ export class PerfilPage implements OnInit {
     } finally {
       loading.dismiss();
     }
+  }
+
+  novoRegistro(){
+    this.navCtrl.navigateForward(this.rotaAtiva.snapshot.queryParamMap.get('redirect') || '/registro-moderador');
   }
 }

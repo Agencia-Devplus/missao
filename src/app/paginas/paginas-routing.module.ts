@@ -32,6 +32,25 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'dizimo',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./dizimo/dizimo.module').then(m => m.DizimoPageModule)
+          }
+        ]
+      },{
+        path: 'noticias',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./noticias/noticias.module').then(m => m.NoticiasPageModule)
+          }
+        ]
+      },
+      {
         path: 'perfil',
         children: [
           {
@@ -46,7 +65,17 @@ const routes: Routes = [
   {
     path: 'forum-popover',
     loadChildren: () => import('./forum-popover/forum-popover.module').then(m => m.ForumPopoverPageModule)
-  },
+  },/*
+  {
+    path: 'registro-moderador',
+    loadChildren: () => import('./registro-moderador/registro-moderador.module').then( m => m.RegistroModeradorPageModule)
+  }
+
+   {
+    path: 'dizimo',
+    loadChildren: () => import('./dizimo/dizimo.module').then( m => m.DizimoPageModule)
+  }, */
+
 
 ];
 

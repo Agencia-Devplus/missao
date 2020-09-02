@@ -25,6 +25,14 @@ const routes: Routes = [
             loadChildren: () => import('../forum/forum.module').then(m => m.ForumPageModule)
           }
         ]
+      },{
+        path: 'noticias',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../noticias/noticias.module').then(m => m.NoticiasPageModule)
+          }
+        ]
       },
       {
         path: 'perfil',

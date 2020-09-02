@@ -104,4 +104,29 @@ export class CrudService {
     this.firestore.collection('Perguntas').doc('Comentarios/' + record_id).delete();
   }
   /* FIM CRUD POSTAGENS */
+
+    /* Início CRUD Noticia */
+
+    create_NovaNoticia(record) {
+      return this.firestore.collection('noticias').add(record);
+    }
+  
+    read_Noticias() {
+      return this.firestore.collection('noticias', ref => ref.orderBy('dataNoticia', 'desc')).snapshotChanges();
+    }
+  
+    update_Noticia(recordID, record) {
+      this.firestore.doc('noticias/' + recordID).update(record);
+    }
+  
+    delete_Noticia(record_id) {
+      this.firestore.doc('noticias/' + record_id).delete();
+      //this.firestore.collection('noticias').doc(record_id).delete();
+    }
+  
+    filtrarNoticia(filtroCategoria: string){
+      return this.firestore.collection('noticias', ref => ref.where('tipo', '==', filtroCategoria)).valueChanges();
+    }
+  
+    /* Fim CRUD Noticia */
 }

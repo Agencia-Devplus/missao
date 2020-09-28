@@ -11,5 +11,16 @@ import { environment } from "./../environments/environment";
   imports: [CoreModule, AppRoutingModule],
 
   bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: FirestoreSettingsToken,
+      useValue: environment.production
+        ? undefined
+        : {
+            host: "localhost:8080",
+            ssl: false,
+          },
+    },
+  ],
 })
 export class AppModule {}

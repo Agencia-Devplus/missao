@@ -2,11 +2,7 @@
     <ion-toolbar class="header">
         <ion-title>Fórum</ion-title>
     </ion-toolbar>
-    <div class="ion-padding">
-        <h4>Olá, {{ user.displayName }}!</h4>
-        <ion-searchbar showCancelButton="focus" placeholder="Buscar" (ionInput)="filtro($event)">
-        </ion-searchbar>
-    </div>
+    <ion-searchbar showCancelButton="focus" placeholder="Buscar"></ion-searchbar>
 </ion-header>
 
 <ion-content>
@@ -17,9 +13,8 @@
             </ion-avatar>
             <ion-label>
                 <h2>{{ pergunta.usuario }}</h2>
-                <h4>
-                    Em {{ pergunta.categoria }} - {{ pergunta.dataPergunta.toDate() | customData }}
-                </h4>
+                <h3>{{ pergunta.categoria }}</h3>
+                <h3>{{ pergunta.dataPergunta.toDate() | customData }}</h3>
             </ion-label>
         </ion-item>
 
@@ -28,15 +23,9 @@
         <div>
             <ion-grid>
                 <ion-row>
-                    <ion-col size="4" class="center">
-                        <ion-icon name="thumbs-up"></ion-icon>
-                    </ion-col>
-                    <ion-col size="4" class="center" [routerLink]="['/comentarios-forum/' + pergunta.id]" routerdirection="forward">
-                        <ion-icon name="chatbubbles"></ion-icon>
-                    </ion-col>
-                    <ion-col size="4" class="center">
-                        <ion-icon name="share-alt"></ion-icon>
-                    </ion-col>
+                    <ion-col size="4" class="left">Curtir</ion-col>
+                    <ion-col size="4" class="center" [routerLink]="['/comentarios-forum/' + item.id]" routerdirection="forward">Comentários</ion-col>
+                    <ion-col size="4" class="right">Compartilhar</ion-col>
                 </ion-row>
             </ion-grid>
         </div>

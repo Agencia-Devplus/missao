@@ -21,7 +21,6 @@ export class ForumPage {
   id_que_vem: any;
   array = [];
   essa_maldita_id: any;
-  allQuestions: any[];
 
   constructor(
     private auth: AuthService,
@@ -39,26 +38,6 @@ export class ForumPage {
   ionViewWillEnter() {
     this.comments = [];
     this.listarPerguntas();
-  }
-
-  inicializarBusca(): void {
-    this.perguntas = this.array;
-  }
-
-  filtro(evento: { srcElement: { value: any } }) {
-    this.inicializarBusca();
-    const termo = evento.srcElement.value;
-    if (!termo) {
-      return;
-    }
-    this.perguntas = this.perguntas.filter((postagem) => {
-      if (postagem.usuario && termo) {
-        if (postagem.usuario.toLowerCase().indexOf(termo.toLowerCase()) > -1) {
-          return true;
-        }
-        return false;
-      }
-    });
   }
 
   /* CRUD POSTAGEM */

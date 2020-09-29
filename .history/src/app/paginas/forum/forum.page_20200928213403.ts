@@ -5,6 +5,7 @@ import { AuthService } from "src/app/core/services/auth.service";
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { PopoverController, NavController, Platform } from "@ionic/angular";
 import { OverlayService } from "src/app/core/services/overlay.service";
+import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 
 @Component({
   selector: "app-forum",
@@ -51,7 +52,7 @@ export class ForumPage {
     if (!termo) {
       return;
     }
-    this.perguntas = this.perguntas.filter((postagem) => {
+    this.allQuestions = this.allQuestions.filter((postagem) => {
       if (postagem.usuario && termo) {
         if (postagem.usuario.toLowerCase().indexOf(termo.toLowerCase()) > -1) {
           return true;

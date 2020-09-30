@@ -13,7 +13,7 @@ import { OverlayService } from "src/app/core/services/overlay.service";
 })
 export class ForumPage {
   //user: firebase.User;
-  user: any = {};
+  user: any;
   perguntas: any[];
   id_user_pergunta: any;
   comentarios: any;
@@ -32,13 +32,17 @@ export class ForumPage {
     private overlay: OverlayService
   ) {
     //this.auth.authState$.subscribe((user) => (this.user = user));
+    this.listarPerguntas();
+    this.carregaUsuario();    
   }
 
   ionViewWillEnter() {
-    this.comments = [];
-    this.listarPerguntas();
-    this.crudService.loadUser().subscribe((user) => {
-     if(user) this.user = user;
+    this.comments = [];    
+  }
+
+  carregaUsuario() {
+    this.crudService.loadUser().subscribe((data) => {
+      this.user = data;
     });
   }
 

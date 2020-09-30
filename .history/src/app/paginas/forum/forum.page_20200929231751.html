@@ -41,7 +41,7 @@
 
     <!-- FAB BUTTON -->
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button [routerLink]="['/addpergunta']" routerdirection="forward">
+        <ion-fab-button [routerLink]="['/addpergunta']" routerdirection="forward" [disabled]="user">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>

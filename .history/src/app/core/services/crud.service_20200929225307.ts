@@ -100,7 +100,7 @@ export class CrudService {
   delete_Comentario(record_id) {
     this.firestore.doc('Comentarios/' + record_id).delete();
   }
-  delete_ComentariosPergunta(record_id) { 
+  delete_ComentariosPergunta(record_id) {
     this.firestore.collection('Perguntas').doc('Comentarios/' + record_id).delete();
   }
   /* FIM CRUD POSTAGENS */
@@ -133,6 +133,8 @@ export class CrudService {
     /* Carregar Usuário */
     loadUser() {
       const userID = this.auth.loadUser();
-      return this.firestore.collection('users').doc(userID).valueChanges();
+      this.firestore.collection('users').doc(userID).valueChanges().subscribe(data => {
+        console.log(data)
+      })
     } 
 }

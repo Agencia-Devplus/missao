@@ -12,15 +12,11 @@ export class AuthService {
   authState$: Observable<firebase.User>;
 
   constructor(private angularFireAuth: AngularFireAuth) {
-    this.authState$ = this.angularFireAuth.authState;    
+    this.authState$ = this.angularFireAuth.authState;
   }
 
   get estaAutenticado(): Observable<boolean> {
     return this.authState$.pipe(map(user => user !== null));
-  }
-
-  loadUser(){
-    return this.angularFireAuth.auth.currentUser.uid;
   }
 
   autenticar({ isSignIn, provider, user }: AuthOptions): Promise<auth.UserCredential> {

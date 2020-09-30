@@ -12,8 +12,8 @@ import { OverlayService } from "src/app/core/services/overlay.service";
   styleUrls: ["./forum.page.scss"],
 })
 export class ForumPage {
-  //user: firebase.User;
-  user: any = {};
+  user: firebase.User;
+  isAdmin?: any;
   perguntas: any[];
   id_user_pergunta: any;
   comentarios: any;
@@ -26,20 +26,21 @@ export class ForumPage {
 
   constructor(
     private auth: AuthService,
-    public router: Router,
-    private crudService: CrudService,
+    public router: Router,    
+    private crudService: CrudService,    
     public route: ActivatedRoute,
     private overlay: OverlayService
   ) {
-    //this.auth.authState$.subscribe((user) => (this.user = user));
+    this.auth.authState$.subscribe((user) => (this.user = user));
   }
 
   ionViewWillEnter() {
     this.comments = [];
     this.listarPerguntas();
-    this.crudService.loadUser().subscribe((user) => {
-     if(user) this.user = user;
+    this.crudService.loadUser().subscribe(data => {
+      console.log(data)
     });
+    
   }
 
   inicializarBusca(): void {

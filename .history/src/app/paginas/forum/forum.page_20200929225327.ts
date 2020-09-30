@@ -12,8 +12,7 @@ import { OverlayService } from "src/app/core/services/overlay.service";
   styleUrls: ["./forum.page.scss"],
 })
 export class ForumPage {
-  //user: firebase.User;
-  user: any = {};
+  user: firebase.User;
   perguntas: any[];
   id_user_pergunta: any;
   comentarios: any;
@@ -27,19 +26,20 @@ export class ForumPage {
   constructor(
     private auth: AuthService,
     public router: Router,
+    private navCtrl: NavController,
     private crudService: CrudService,
+    private popoverController: PopoverController,
+    private platform: Platform,
     public route: ActivatedRoute,
     private overlay: OverlayService
   ) {
-    //this.auth.authState$.subscribe((user) => (this.user = user));
+    this.auth.authState$.subscribe((user) => (this.user = user));
   }
 
   ionViewWillEnter() {
     this.comments = [];
     this.listarPerguntas();
-    this.crudService.loadUser().subscribe((user) => {
-     if(user) this.user = user;
-    });
+    this.crudService.loadUser();
   }
 
   inicializarBusca(): void {

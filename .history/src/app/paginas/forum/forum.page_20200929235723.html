@@ -40,8 +40,8 @@
     </ion-card>
 
     <!-- FAB BUTTON -->
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button [routerLink]="['/addpergunta']" routerdirection="forward">
+    <ion-fab *ngIf="user" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [disabled]="!user.isAdmin" [routerLink]="['/addpergunta']" routerdirection="forward">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>

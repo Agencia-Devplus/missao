@@ -30,7 +30,7 @@ export class PerfilPage implements OnInit {
   configs = {
     isSignIn: true,
     acao: 'Entrar',
-    mudarAcao: 'Criar Conta'
+    mudarAcao: 'Criar Conta',
   };
   constructor(
     private auth: AuthService,
@@ -45,16 +45,16 @@ export class PerfilPage implements OnInit {
     private rotaAtiva: ActivatedRoute,
     public navCtrl: NavController
   ) {
-     this.auth.authState$.subscribe(user => (this.user = user));
+    this.auth.authState$.subscribe((user) => (this.user = user));
 
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         firebase
           .firestore()
           .doc(`/users/${user.uid}`)
           .get()
-          .then(userProfileSnapshot => {
-            this.isAdmin = userProfileSnapshot.data().isAdmin;
+          .then((userProfileSnapshot) => {
+            //this.isAdmin = userProfileSnapshot.data().isAdmin;
           });
       }
     });
@@ -65,19 +65,21 @@ export class PerfilPage implements OnInit {
   }
 
   listarPerguntasUsuario() {
-    this.crudService.read_PerguntasUsuario(firebase.auth().currentUser.uid).subscribe(data => {
-      this.perguntas = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          isEdit: false,
-          pergunta: e.payload.doc.data()['pergunta'],
-          categoria: e.payload.doc.data()['categoria'],
-          usuario: e.payload.doc.data()['usuario'],
-          usuarioFoto: e.payload.doc.data()['usuarioFoto'],
-          id_user_pergunta: e.payload.doc.data()['id_usuario']
-        };
-      })
-    });
+    this.crudService
+      .read_PerguntasUsuario(firebase.auth().currentUser.uid)
+      .subscribe((data) => {
+        this.perguntas = data.map((e) => {
+          return {
+            id: e.payload.doc.id,
+            isEdit: false,
+            pergunta: e.payload.doc.data()['pergunta'],
+            categoria: e.payload.doc.data()['categoria'],
+            usuario: e.payload.doc.data()['usuario'],
+            usuarioFoto: e.payload.doc.data()['usuarioFoto'],
+            id_user_pergunta: e.payload.doc.data()['id_usuario'],
+          };
+        });
+      });
   }
   // Testes upload de imagens
   async abrirGaleria() {
@@ -87,14 +89,15 @@ export class PerfilPage implements OnInit {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       correctOrientation: true,
       targetHeight: 600,
-      targetWidth: 600
-    }
+      targetWidth: 600,
+    };
     const loading = await this.overlay.loading();
     try {
-
-      /*const fileURI: string =*/ await this.camera.getPicture(opcoes).then((imageData) => {
-      this.cropImage(imageData);
-    })
+      /*const fileURI: string =*/ await this.camera
+        .getPicture(opcoes)
+        .then((imageData) => {
+          this.cropImage(imageData);
+        });
 
       /*
       let file: string;
@@ -114,42 +117,49 @@ export class PerfilPage implements OnInit {
 
       this.uploadPic(blob);
       */
-
-
     } catch (e) {
       this.overlay.toast({
-        message: 'Erro: ' + e
-      })
+        message: 'Erro: ' + e,
+      });
     } finally {
       loading.dismiss();
     }
   }
 
   cropImage(fileUrl) {
-    this.crop.crop(fileUrl, { quality: 80, targetWidth: 300, targetHeight: 300 })
+    this.crop
+      .crop(fileUrl, { quality: 80, targetWidth: 300, targetHeight: 300 })
       .then(
-        async newPath => {
+        async (newPath) => {
           let file: string;
 
           if (this.platform.is('ios')) {
             file = newPath.split('/').pop();
           } else {
-            file = newPath.substring(newPath.lastIndexOf('/') + 1, newPath.indexOf('?'));
-            this.crop.crop(file, { quality: 70, targetWidth: 300, targetHeight: 300 }).then((caminho) => {
-              this.urlCroppedIMG = caminho;
-            })
+            file = newPath.substring(
+              newPath.lastIndexOf('/') + 1,
+              newPath.indexOf('?')
+            );
+            this.crop
+              .crop(file, { quality: 70, targetWidth: 300, targetHeight: 300 })
+              .then((caminho) => {
+                this.urlCroppedIMG = caminho;
+              });
           }
 
           const path: string = newPath.substring(0, newPath.lastIndexOf('/'));
-          const buffer: ArrayBuffer = await this.file.readAsArrayBuffer(path, file);
+          const buffer: ArrayBuffer = await this.file.readAsArrayBuffer(
+            path,
+            file
+          );
           const blob: Blob = new Blob([buffer], { type: 'image/jpeg' });
 
           this.uploadPic(blob);
         },
-        error => {
+        (error) => {
           this.overlay.toast({
-            message: 'Erro cortando a imagem: ' + error
-          })
+            message: 'Erro cortando a imagem: ' + error,
+          });
         }
       );
   }
@@ -159,28 +169,37 @@ export class PerfilPage implements OnInit {
     loading.present();
     try {
       const ref = this.storage.ref(this.user.uid + '/profile/avatar.jpg');
-      await ref.put(blob).then(snapshot => {
-        this.upload = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      }).then(async () => {
-        await ref.getDownloadURL().toPromise().then(url => {
-          this.user.updateProfile({
-            photoURL: url
-          })
-          //Alterar no banco
-          this.crudService.update_FotoUserComentário(this.user.uid, url);
-          this.crudService.update_FotoUserPostagem(this.user.uid, url)
+      await ref
+        .put(blob)
+        .then((snapshot) => {
+          this.upload = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         })
-      })
+        .then(async () => {
+          await ref
+            .getDownloadURL()
+            .toPromise()
+            .then((url) => {
+              this.user.updateProfile({
+                photoURL: url,
+              });
+              //Alterar no banco
+              this.crudService.update_FotoUserComentário(this.user.uid, url);
+              this.crudService.update_FotoUserPostagem(this.user.uid, url);
+            });
+        });
     } catch (e) {
       this.overlay.alert({
-        message: "Erro ao enviar a foto: " + e
-      })
+        message: 'Erro ao enviar a foto: ' + e,
+      });
     } finally {
       loading.dismiss();
     }
   }
 
-  novoRegistro(){
-    this.navCtrl.navigateForward(this.rotaAtiva.snapshot.queryParamMap.get('redirect') || '/registro-moderador');
+  novoRegistro() {
+    this.navCtrl.navigateForward(
+      this.rotaAtiva.snapshot.queryParamMap.get('redirect') ||
+        '/registro-moderador'
+    );
   }
 }

@@ -1,0 +1,15 @@
+<ion-header>
+    <ion-toolbar class="header">
+        <ion-title>Fórum</ion-title>
+    </ion-toolbar>
+    <ion-searchbar showCancelButton="focus"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+    <!-- FAB BUTTON -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/addpergunta']" routerdirection="forward">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

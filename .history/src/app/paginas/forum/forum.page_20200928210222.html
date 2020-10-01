@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar class="header">
+        <ion-title>Fórum</ion-title>
+    </ion-toolbar>
+    <ion-searchbar showCancelButton="focus" placeholder="Buscar"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngFor="let pergunta of perguntas">
+        <ion-item lines="none">
+            <ion-avatar slot="start">
+                <img [src]="pergunta.usuarioFoto" />
+            </ion-avatar>
+            <ion-label>
+                <h2>{{ pergunta.usuario }}</h2>
+                <h3>{{ pergunta.categoria }}</h3>
+                <h3>{{ pergunta.dataPergunta.toDate() | customData }}</h3>
+            </ion-label>
+        </ion-item>
+
+        <ion-card-content> {{ pergunta.pergunta }} </ion-card-content>
+
+        <div>
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="4" style="text-align: left">Curtir</ion-col>
+                    <ion-col size="4" style="text-align: center">Comentários</ion-col>
+                    <ion-col size="4" style="text-align: right">Compartilhar</ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ion-card>
+
+    <!-- FAB BUTTON -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/addpergunta']" routerdirection="forward">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

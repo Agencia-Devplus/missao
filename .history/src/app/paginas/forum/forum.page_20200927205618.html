@@ -1,0 +1,109 @@
+<ion-header>
+    <ion-toolbar class="bg-header">
+        <ion-title style="text-align: center !important;">Fórum</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="ion-no-margin pdb-10" *ngFor="let item of perguntas" style="border-radius: 25px;
+    margin: 15px;">
+        <ion-grid>
+            <span *ngIf="!item.isEdit; else elseBlock">
+        <ion-row class="pdb-5">
+          <ion-col size="2" class="ion-align-self-start">
+            <div class="wrap-avatar circle">
+              <img [src]="item.usuarioFoto" />
+            </div>
+          </ion-col>
+          <ion-col size="10">
+            <div>
+              <h2 class="txt-dark  fw-600 fs-18" style="margin-top: 8px; font-size: 14px !important;">{{ item.usuario }}</h2>
+              <h2 class="txt-dark  fw-600 fs-12 italic mgt--10" >{{ item.categoria }}</h2>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <div [ngStyle]="{'background-color':item.categoria === 'nutricao' ? '#698eac' : '#7dd1f0' }">
+          <ion-row [routerLink]="['/comentarios-forum/' + item.id]" routerdirection="forward">
+            <div>
+              <p class="txt-light fs-17 pd-25 ion-text-justify">{{item.pergunta}}</p>
+            </div>
+          </ion-row>
+        </div>
+
+        <div *ngFor="let coment of comments">
+          <div *ngIf="coment.id_pergunta == item.id">
+            <ion-row class="pdt-10">
+              <ion-col size="1">
+                <div class="wrap-avatar circle">
+                  <img [src]="coment.usuarioFoto" />
+                </div>
+              </ion-col>
+              <ion-col size="10" class="txt-dark  fw-400 pdl-10 fs-12 pdt-8">
+                <strong>{{coment.usuario}}</strong> {{coment.comentario}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="pdt-10">
+              <ion-col size="1" class="mgt-10">
+                <div class="wrap-avatar circle">
+                  <img [src]="user.photoURL" />
+                </div>
+              </ion-col>
+              <!-- <ion-col size="10">
+                <ion-input [routerLink]="['/comentarios-forum/' + item.id]" routerdirection="forward"
+                  placeholder="Faça um comentário..."></ion-input>
+              </ion-col> -->
+            </ion-row>
+          </div>
+        </div>
+        <div [routerLink]="['/comentarios-forum/' + item.id]">
+
+        <!-- <ion-button expand="full" fill="clear" style="font-size: 12px;" >
+          Ver postagem
+        </ion-button> -->
+        <ion-row>
+          <ion-col size="1" class="ion-align-self-start pdt-15">
+              <div class="wrap-avatar circle">
+                  <img [src]="user.photoURL" />
+              </div>
+          </ion-col>
+          <ion-col size="11">
+              <ion-input placeholder="Faça um comentário..."></ion-input>
+          </ion-col>
+        </ion-row>
+      </div>
+      </span>
+        </ion-grid>
+
+        <ng-template #elseBlock>
+            <ion-card-header>
+                <ion-card-title>
+                    <ion-item class="txt-dark fs-15 pd-10 edi-pergunta">
+                        <ion-textarea type="text" [(ngModel)]="item.editPergunta"></ion-textarea>
+                    </ion-item>
+                    <ion-grid>
+                        <ion-row class="txt-dark fs-15 pd-10">
+                            <ion-col>
+                                <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                                    Cancelar
+                                </ion-button>
+                            </ion-col>
+                            <ion-col>
+                                <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+                                    Atualizar
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-title>
+            </ion-card-header>
+        </ng-template>
+    </ion-card>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/addpergunta']" routerdirection="forward">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+</ion-content>

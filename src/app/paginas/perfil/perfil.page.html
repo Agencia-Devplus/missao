@@ -1,73 +1,86 @@
 <ion-content>
   <!-- Inicio If User -->
   <div *ngIf="user">
-      <!-- Capa -->
-      <div class="wrap-cover parallax-obj">
-          <div class="bg-profile shadow-4">
-              <img class="parallax-obj parallax-up-obj parallax-blur-obj" src="assets/img/lemon13.jpg">
-          </div>
+    <!-- Capa -->
+    <div class="wrap-cover parallax-obj">
+      <div class="bg-profile shadow-4">
+        <img
+          class="parallax-obj parallax-up-obj parallax-blur-obj"
+          src="assets/img/lemon13.jpg"
+        />
       </div>
-      <!-- Fim Capa -->
+    </div>
+    <!-- Fim Capa -->
 
-      <!-- Avatar -->
-      <div class="wrap-avatar">
-          <!-- Botão Mais-->
-          <div class="action-btn">
-              <ion-button shape="round" fill="clear" class="e2eShowPopover">
-                  <ion-icon name="apps-outline"></ion-icon>
-              </ion-button>
-          </div>
-          <!-- Fim Botão Mais-->
-
-          <!-- Foto do Perfil -->
-          <div class="avt-image circle" (click)="abrirGaleria()">
-            <ion-icon class="iconSize" *ngIf="user.photoURL == null"  name="person-add"></ion-icon>
-              <img  *ngIf="user.photoURL != null" [src]="user.photoURL" />
-            
-          </div>
-          <!-- Fim Foto do Perfil -->
-
-          <!-- Botão Logout -->
-          <div class="action-btn">
-              <app-botao-logout>
-              </app-botao-logout>
-          </div>
-          <!-- Fim Botão Logout -->
+    <!-- Avatar -->
+    <div class="wrap-avatar">
+      <!-- Botão Mais-->
+      <div class="action-btn">
+        <ion-button shape="round" fill="clear" class="e2eShowPopover">
+          <ion-icon name="apps-outline"></ion-icon>
+        </ion-button>
       </div>
-      <!-- Fim Avatar -->
+      <!-- Fim Botão Mais-->
 
-      <!-- Início informações -->
-      <div class="ion-padding">
-          <!-- Info Usuário-->
-          <div class="info ion-text-center">
-              <h2 class="fw-600 fs-20 ion-no-margin">{{ user.displayName }}</h2>
-          </div>
-          <!-- Fim Info Usuário -->
-
-          <!-- BIO Usuário -->
-          <div class="pdl-5">
-              <p class="txt4 fs-15 fw-500 pdt-10 ion-text-left">Interações</p>
-          </div>
-          <!-- Fim BIO Usuário -->
-
-          <!-- Cartão Postagem -->
-          <div class="txt-pergunta">
-              <div class=" element-gallery pdl-5 pdr-5" *ngFor="let item of perguntas ">
-                  <div class="wrap-element shadow-2">
-                      <div class="pd-10 txt-info txt-dark ">
-                              <h4 class="ellipsis fs-12 fw-700  ">Sua pergunta</h4><h4 class="ellipsis fs-12 fw-500 spacing1 pdb-2 uppercase ">{{ item.pergunta }}</h4>
-                              <h6 class="ellipsis fs-11 fw-400 ion-no-margin">Categoria: {{ item.categoria }}</h6>
-                          </div>
-                  </div>
-              </div>
-          </div>
-          <!-- Fim Cartão Postagem -->
+      <!-- Foto do Perfil -->
+      <div class="avt-image circle" (click)="abrirGaleria()">
+        <ion-icon
+          class="iconSize"
+          *ngIf="user.photoURL == ''"
+          name="person-add"
+        ></ion-icon>
+        <img *ngIf="user.photoURL != ''" [src]="user.photoURL" />
       </div>
-      <!-- Fim Informações-->
+      <!-- Fim Foto do Perfil -->
+
+      <!-- Botão Logout -->
+      <div class="action-btn">
+        <app-botao-logout> </app-botao-logout>
+      </div>
+      <!-- Fim Botão Logout -->
+    </div>
+    <!-- Fim Avatar -->
+
+    <!-- Início informações -->
+    <div class="ion-padding">
+      <!-- Info Usuário-->
+      <div class="info ion-text-center">
+        <h2 class="fw-600 fs-20 ion-no-margin">{{ user.displayName }}</h2>
+      </div>
+      <!-- Fim Info Usuário -->
+
+      <!-- BIO Usuário -->
+      <div class="pdl-5">
+        <p class="txt4 fs-15 fw-500 pdt-10 ion-text-left">Interações</p>
+      </div>
+      <!-- Fim BIO Usuário -->
+
+      <!-- Cartão Postagem -->
+      <div class="txt-pergunta">
+        <div
+          class="element-gallery pdl-5 pdr-5"
+          *ngFor="let item of perguntas "
+        >
+          <div class="wrap-element shadow-2">
+            <div class="pd-10 txt-info txt-dark">
+              <h4 class="ellipsis fs-12 fw-700">Sua pergunta</h4>
+              <h4 class="ellipsis fs-12 fw-500 spacing1 pdb-2 uppercase">
+                {{ item.pergunta }}
+              </h4>
+              <h6 class="ellipsis fs-11 fw-400 ion-no-margin">
+                Categoria: {{ item.categoria }}
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Fim Cartão Postagem -->
+    </div>
+    <!-- Fim Informações-->
   </div>
   <!-- Fim Inicio If User -->
   <ion-fab *ngIf="isAdmin" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="primary"  (click)="novoRegistro()">
+    <ion-fab-button color="primary" (click)="novoRegistro()">
       <ion-icon name="person-add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

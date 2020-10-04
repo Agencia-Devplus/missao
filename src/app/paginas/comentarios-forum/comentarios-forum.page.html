@@ -1,119 +1,140 @@
 <ion-header>
-    <ion-toolbar class="bg-header">
-        <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
-        </ion-buttons>
-        <ion-title>Expresse sua opinião</ion-title>
-    </ion-toolbar>
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Comentários</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content *ngFor="let item of pergunta">
+  <span>
+    <ion-card *ngIf="!item.isEdit; else elseBlock">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img [src]="item.usuarioFoto" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ item.usuario }}</h2>
+          <h3>{{ item.categoria }}</h3>
+        </ion-label>
+        <ion-buttons slot="end" *ngIf="user.uid == item.id_usuario">
+          <ion-button color="primary" fill="clear" (click)="EditRecord(item)">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <ion-button
+            color="danger"
+            fill="clear"
+            (click)="RemoveRecord(idpergunta)"
+          >
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-card-content> {{ item.pergunta | uppercase }} </ion-card-content>
+    </ion-card>
 
-    <ion-grid>
-        <span *ngIf="!item.isEdit; else elseBlock">
+    <ng-template #elseBlock>
+      <ion-textarea
+        type="text"
+        autocapitalize="on"
+        [(ngModel)]="atualizacaoPergunta"
+      ></ion-textarea>
+      <ion-item class="txt-dark fs-15 pd-10 edi-pergunta" lines="none">
+        <ion-buttons slot="start">
+          <ion-button
+            fill="outline"
+            color="success"
+            size="small"
+            (click)="UpdateRecord(item)"
+          >
+            Atualizar
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button
+            fill="clear"
+            color="medium"
+            size="small"
+            (click)="item.isEdit = false"
+          >
+            Cancelar
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ng-template>
+  </span>
 
+  <p class="txt-dark fw-500 pdl-20 fs-15">Comentários</p>
+  <ion-grid *ngFor="let coment of comentarios">
+    <ion-list class="ion-no-margin">
+      <ion-item lines="none">
         <ion-row>
           <ion-col size="2" class="ion-align-self-start">
-            <div class="wrap-avatar circle">
-              <img [src]="item.usuarioFoto" />
+            <div
+              class="wrap-avatar circle"
+              *ngIf="coment.usuarioFoto; else noPhoto"
+            >
+              <img [src]="coment.usuarioFoto" />
             </div>
+            <ng-template #noPhoto>
+              <div class="wrap-avatar circle">
+                <img
+                  src="https://snowskischool.it/wp-content/uploads/2019/12/80-805068_my-profile-icon-blank-profile-picture-circle-hd.jpg"
+                />
+              </div>
+            </ng-template>
           </ion-col>
-          <ion-col size="6" >
-            <div >
-              <h2 class="txt-dark  fw-600 fs-18" style="margin-top: 15px;">{{ item.usuario }}</h2>
-            </div>
+          <ion-col
+            size="10"
+            class="txt-dark fw-400 pdl-20 fs-15 ion-text-justify"
+          >
+            <strong>{{coment.usuario}}</strong><br />
+            {{coment.comentario}}
           </ion-col>
-          <ion-col size="4">
-            <!-- Toolbar Postagem-->
-            <ion-toolbar>
-
-              <ion-buttons slot="end" *ngIf="user.uid == item.id_usuario">
-                  <ion-button color="primary" fill="clear" (click)="EditRecord(item)">
-                    <ion-icon name="create"></ion-icon>
-                  </ion-button>
-                  <ion-button color="danger" fill="clear" (click)="RemoveRecord(idpergunta)">
-                      <ion-icon name="trash"></ion-icon>
-                  </ion-button>
-              </ion-buttons>
-          </ion-toolbar>
-          <!-- Fim Toolbar Postagem-->
-          </ion-col>
-
         </ion-row>
-
-        <ion-row class="bg-pergunta">
-            <div >
-              <p class="txt-light fs-17 pd-10 ion-text-justify">{{item.pergunta}}</p>
-          </div>
-        </ion-row>
-      </span>
-    </ion-grid>
-    <ng-template #elseBlock>
-
-        <ion-card-header>
-            <ion-card-title>
-                <ion-item class="txt-dark fs-15 pd-10 edi-pergunta">
-                    <ion-textarea type="text" [(ngModel)]="item.editPergunta"></ion-textarea>
-                </ion-item>
-                <ion-grid>
-                    <ion-row class="txt-dark fs-15 pd-10">
-
-                        <ion-col>
-                            <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
-                                Cancelar
-                            </ion-button>
-                        </ion-col>
-                        <ion-col>
-                            <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
-                                Atualizar
-                            </ion-button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-title>
-        </ion-card-header>
-    </ng-template>
-
-    <p class="txt-dark  fw-500 pdl-20 fs-15">Comentários</p>
-    <ion-grid *ngFor="let coment of comentarios">
-        <ion-list class="ion-no-margin">
-            <ion-item>
-                <ion-row>
-                    <ion-col size="2" class="ion-align-self-start">
-                        <div class="wrap-avatar circle">
-                            <img [src]="coment.usuarioFoto" />
-                        </div>
-                    </ion-col>
-                    <ion-col size="10" class="txt-dark  fw-400 pdl-20 fs-15 ion-text-justify">
-                        <strong>{{coment.usuario}}</strong> {{coment.comentario}}
-                    </ion-col>
-                </ion-row>
-            </ion-item>
-
-        </ion-list>
-    </ion-grid>
-
+      </ion-item>
+    </ion-list>
+  </ion-grid>
 </ion-content>
+
+<!-- FOOTER-->
 <ion-footer *ngIf="user">
-    <ion-toolbar>
-        <ion-grid>
-            <ion-row>
-                <ion-col size="2" class="ion-align-self-start">
-                    <div class="wrap-avatar circle">
-                        <img [src]="user.photoURL" />
-                    </div>
-                </ion-col>
-                <ion-col size="8">
-                    <ion-input placeholder="Comente algo..." [(ngModel)]="comentario"></ion-input>
-                </ion-col>
-                <ion-col size="2">
-                    <ion-buttons end>
-                        <ion-button color="primary" icon-right (click)="criarComentario()">
-                            <ion-icon icon-only name="send"></ion-icon>
-                        </ion-button>
-                    </ion-buttons>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2" class="ion-align-self-start">
+          <div
+            class="wrap-avatar circle"
+            *ngIf="user.photoUrl != ''; else noAvatar"
+          >
+            <img [src]="user.photoURL" />
+          </div>
+          <ng-template #noAvatar>
+            <div class="wrap-avatar circle">
+              <img
+                src="https://snowskischool.it/wp-content/uploads/2019/12/80-805068_my-profile-icon-blank-profile-picture-circle-hd.jpg"
+              />
+            </div>
+          </ng-template>
+        </ion-col>
+        <ion-col size="8">
+          <ion-input
+            autocapitalize="on"
+            autocomplete="on"
+            autocorrect="on"
+            placeholder="Comente algo..."
+            [(ngModel)]="comentario"
+          ></ion-input>
+        </ion-col>
+        <ion-col size="2">
+          <ion-buttons end>
+            <ion-button color="primary" icon-right (click)="criarComentario()">
+              <ion-icon icon-only name="send"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
 </ion-footer>
